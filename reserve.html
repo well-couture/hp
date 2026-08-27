@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Well couture STUDIO | 東京・目黒のウェディングフォトスタジオ</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Hunter';src:url('./assets/Hunter.otf') format('opentype');font-display:swap}
+@font-face{font-family:'Marigold';src:url('./assets/MARIGOLD.otf') format('opentype');font-display:swap}
+body{margin:0;background:#141210;font-family:'Shippori Mincho',serif;-webkit-font-smoothing:antialiased}
+a{color:#3d372f;text-decoration:none}
+a:hover{color:#8a7f6f}
+</style>
+</helmet>
+<div style="max-width:430px;margin:0 auto;background:#efece6;color:#3d372f;position:relative;min-height:100vh" data-screen-label="来店予約ページ">
+
+  <header style="position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:rgba(20,18,16,0.86);backdrop-filter:blur(10px)">
+    <a href="./index.html" style="display:flex;align-items:center;gap:10px">
+      <span style="font-family:'Hunter',serif;font-size:16px;color:#e9e4d9">‹</span>
+      <img src="./assets/logo-white.webp" alt="Well couture STUDIO" style="display:block;height:22px;width:auto">
+    </a>
+  </header>
+
+  <section style="padding:44px 26px 28px;background:#141210;display:flex;flex-direction:column;gap:10px;text-align:center;align-items:center">
+    <span style="font-family:'Marigold',cursive;font-size:28px;color:#d8cfbc;line-height:1.2">Reservation</span>
+    <span style="font-size:13px;letter-spacing:0.22em;color:#f2efe8">来店予約</span>
+    <p style="margin:0;font-size:11px;line-height:2;letter-spacing:0.05em;color:#a99f8e">ドレス見学のみでも歓迎です。所要約60分、<br>無理なご案内は一切いたしません。</p>
+  </section>
+
+  <section style="padding:36px 22px 64px;display:flex;flex-direction:column;gap:22px">
+    <div style="background:#f6f4ee;padding:22px 18px;display:flex;flex-direction:column;gap:18px">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:10px;letter-spacing:0.24em;color:#8a7f6f">1. ご希望日</span>
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <button onClick="{{ prevMonth }}" style="background:none;border:1px solid rgba(61,55,47,0.25);width:30px;height:30px;cursor:pointer;color:#3d372f;font-family:'Hunter',serif">‹</button>
+          <span style="font-size:13px;letter-spacing:0.14em;color:#2e2922">{{ monthLabel }}</span>
+          <button onClick="{{ nextMonth }}" style="background:none;border:1px solid rgba(61,55,47,0.25);width:30px;height:30px;cursor:pointer;color:#3d372f;font-family:'Hunter',serif">›</button>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px">
+          <sc-for list="{{ weekdays }}" as="w" hint-placeholder-count="7">
+            <span style="text-align:center;font-size:9px;letter-spacing:0.1em;color:#8a7f6f;padding:4px 0">{{ w }}</span>
+          </sc-for>
+          <sc-for list="{{ days }}" as="d" hint-placeholder-count="35">
+            <button onClick="{{ d.pick }}" disabled="{{ d.disabled }}" style="border:none;height:36px;cursor:pointer;font-family:'Shippori Mincho',serif;font-size:12px;background:{{ d.bg }};color:{{ d.fg }}">{{ d.label }}</button>
+          </sc-for>
+        </div>
+        <span style="font-size:9px;letter-spacing:0.06em;color:#8a7f6f">※ 火・水曜は定休日のため選択できません</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:10px;letter-spacing:0.24em;color:#8a7f6f">2. ご希望時間</span>
+        <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px">
+          <sc-for list="{{ times }}" as="t" hint-placeholder-count="8">
+            <button onClick="{{ t.pick }}" style="border:1px solid rgba(61,55,47,0.25);padding:9px 0;cursor:pointer;font-family:'Hunter',serif;font-size:12px;letter-spacing:0.05em;background:{{ t.bg }};color:{{ t.fg }}">{{ t.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-size:10px;letter-spacing:0.24em;color:#8a7f6f">3. お客さま情報</span>
+        <label style="display:flex;flex-direction:column;gap:5px">
+          <span style="font-size:11px;letter-spacing:0.1em;color:#4a4438">お名前 <span style="font-size:9px;color:#a3543f">必須</span></span>
+          <input value="{{ name }}" onChange="{{ setName }}" placeholder="山田 花子" style="border:1px solid rgba(61,55,47,0.25);background:#ffffff;padding:11px 12px;font-family:'Shippori Mincho',serif;font-size:13px;color:#2e2922;outline:none">
+        </label>
+        <label style="display:flex;flex-direction:column;gap:5px">
+          <span style="font-size:11px;letter-spacing:0.1em;color:#4a4438">お電話番号 <span style="font-size:9px;color:#a3543f">必須</span></span>
+          <input value="{{ tel }}" onChange="{{ setTel }}" type="tel" placeholder="090-1234-5678" style="border:1px solid rgba(61,55,47,0.25);background:#ffffff;padding:11px 12px;font-family:'Shippori Mincho',serif;font-size:13px;color:#2e2922;outline:none">
+        </label>
+        <label style="display:flex;flex-direction:column;gap:5px">
+          <span style="font-size:11px;letter-spacing:0.1em;color:#4a4438">ご質問・ご要望(任意)</span>
+          <textarea value="{{ note }}" onChange="{{ setNote }}" rows="3" placeholder="撮影のみ希望、ドレス見学のみ など" style="border:1px solid rgba(61,55,47,0.25);background:#ffffff;padding:11px 12px;font-family:'Shippori Mincho',serif;font-size:13px;color:#2e2922;outline:none;resize:vertical"></textarea>
+        </label>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <span style="font-size:11px;letter-spacing:0.08em;color:#6b6254;text-align:center">{{ summary }}</span>
+        <button onClick="{{ submit }}" disabled="{{ cantSubmit }}" style="border:none;padding:16px;cursor:pointer;font-family:'Shippori Mincho',serif;font-size:12px;letter-spacing:0.2em;background:{{ submitBg }};color:#f2efe8">{{ submitLabel }}</button>
+        <sc-if value="{{ hasError }}" hint-placeholder-val="{{ false }}">
+          <span style="font-size:10.5px;letter-spacing:0.05em;color:#a3543f;text-align:center">{{ errorMsg }}</span>
+        </sc-if>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;text-align:center">
+      <span style="font-size:10px;letter-spacing:0.1em;color:#8a7f6f">LINEでのご相談・ご予約も承ります</span>
+      <a href="https://line.me/ti/p/%40132onmcg" target="_blank" rel="noopener" style="display:block;font-size:12px;letter-spacing:0.2em;color:#ffffff;background:#06C755;padding:15px">LINEで相談・予約する</a>
+    </div>
+  </section>
+
+  <footer style="padding:44px 26px 36px;background:#141210;display:flex;flex-direction:column;gap:18px;align-items:center;text-align:center">
+    <img src="./assets/logo-white.webp" alt="Well couture STUDIO" style="display:block;width:56%;max-width:220px;height:auto">
+    <a href="./index.html" style="font-size:9px;letter-spacing:0.2em;color:#a99f8e">‹ スタジオトップへ戻る</a>
+    <span style="font-size:8px;letter-spacing:0.14em;color:#6b6254">© 2026 Well couture STUDIO</span>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:844},&quot;gasUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://script.google.com/macros/s/AKfycbwZqRN8_KqI6USbxvktASGh4l6GcMfMS-OVw6H-Q9JxTPsvyWkRFVNeNx2XxSm-s3n8/exec&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;予約連携(GAS URL)&quot;}}">
+class Component extends DCLogic {
+  state = { monthOff: 0, date: null, time: '', name: '', tel: '', note: '', busy: {}, submitting: false, error: '' };
+  _loadBusy() {
+    const gasUrl = this.props.gasUrl ?? '';
+    if (!gasUrl) return;
+    fetch(gasUrl + (gasUrl.includes('?') ? '&' : '?') + 'days=180')
+      .then(r => r.json())
+      .then(d => this.setState({ busy: d.busy || {} }))
+      .catch(() => {});
+  }
+  componentDidMount() { this._loadBusy(); }
+  renderVals() {
+    const s = this.state;
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    const base = new Date(today.getFullYear(), today.getMonth() + s.monthOff, 1);
+    const dim = new Date(base.getFullYear(), base.getMonth() + 1, 0).getDate();
+    const days = [];
+    for (let i = 0; i < base.getDay(); i++) days.push({ label: '', disabled: true, bg: 'transparent', fg: 'transparent', pick: null });
+    for (let n = 1; n <= dim; n++) {
+      const d = new Date(base.getFullYear(), base.getMonth(), n);
+      const closed = d.getDay() === 2 || d.getDay() === 3;
+      const past = d <= today;
+      const iso = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(n).padStart(2, '0');
+      const full = (s.busy[iso] || []).length >= 8;
+      const disabled = closed || past || full;
+      const sel = s.date === iso;
+      days.push({
+        label: String(n), disabled,
+        bg: sel ? '#141210' : disabled ? 'transparent' : '#ffffff',
+        fg: sel ? '#f2efe8' : disabled ? '#c3bbaa' : '#2e2922',
+        pick: disabled ? null : () => this.setState({ date: iso }),
+      });
+    }
+    const dateLabel = s.date ? (() => { const d = new Date(s.date + 'T00:00:00'); return (d.getMonth() + 1) + '月' + d.getDate() + '日(' + '日月火水木金土'[d.getDay()] + ')'; })() : '';
+    const ready = s.date && s.time && s.name.trim() && s.tel.trim();
+    return {
+      monthLabel: base.getFullYear() + '年 ' + (base.getMonth() + 1) + '月',
+      prevMonth: () => this.setState(st => ({ monthOff: Math.max(0, st.monthOff - 1) })),
+      nextMonth: () => this.setState(st => ({ monthOff: Math.min(5, st.monthOff + 1) })),
+      weekdays: ['日', '月', '火', '水', '木', '金', '土'],
+      days,
+      times: ['11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'].map(t => {
+        const taken = s.date ? (s.busy[s.date] || []).includes(t) : false;
+        return {
+          label: t,
+          bg: s.time === t ? '#141210' : taken ? 'transparent' : '#ffffff',
+          fg: s.time === t ? '#f2efe8' : taken ? '#c3bbaa' : '#2e2922',
+          pick: taken ? null : () => this.setState({ time: t }),
+        };
+      }),
+      name: s.name, tel: s.tel, note: s.note,
+      setName: e => this.setState({ name: e.target.value }),
+      setTel: e => this.setState({ tel: e.target.value }),
+      setNote: e => this.setState({ note: e.target.value }),
+      summary: ready ? 'ご希望日時:' + dateLabel + ' ' + s.time : '日時・お名前・お電話番号をご入力ください',
+      cantSubmit: !ready || s.submitting,
+      submitBg: ready && !s.submitting ? '#141210' : '#c3bbaa',
+      submitLabel: s.submitting ? '送信中…' : 'この内容で予約する',
+      hasError: !!s.error,
+      errorMsg: s.error,
+      submit: () => {
+        const gasUrl = this.props.gasUrl ?? '';
+        if (this.state.submitting) return;
+        const goThanks = () => {
+          try { localStorage.setItem('wc-booking', JSON.stringify({ date: s.date, time: s.time, name: s.name })); } catch (e) {}
+          window.location.href = './thanks.html';
+        };
+        if (!gasUrl) { goThanks(); return; }
+        this.setState({ submitting: true, error: '' });
+        fetch(gasUrl, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ date: s.date, time: s.time, name: s.name, tel: s.tel, note: s.note }) })
+          .then(r => r.json())
+          .then(d => {
+            if (d && d.ok === false && d.error === 'slot_taken') {
+              this.setState({ submitting: false, error: '申し訳ありません、その時間は埋まってしまいました。別の時間をお選びください。', time: '' });
+              this._loadBusy();
+              return;
+            }
+            goThanks();
+          })
+          .catch(goThanks);
+      },
+    };
+  }
+}
+</script>
+</body>
+</html>

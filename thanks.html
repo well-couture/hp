@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Well couture STUDIO | 東京・目黒のウェディングフォトスタジオ</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Hunter';src:url('./assets/Hunter.otf') format('opentype');font-display:swap}
+@font-face{font-family:'Marigold';src:url('./assets/MARIGOLD.otf') format('opentype');font-display:swap}
+body{margin:0;background:#141210;font-family:'Shippori Mincho',serif;-webkit-font-smoothing:antialiased}
+a{color:#3d372f;text-decoration:none}
+a:hover{color:#8a7f6f}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</helmet>
+<div style="max-width:430px;margin:0 auto;background:#141210;color:#f2efe8;position:relative;min-height:100vh;display:flex;flex-direction:column" data-screen-label="予約完了サンクスページ">
+
+  <header style="display:flex;justify-content:center;padding:26px 18px 0">
+    <img src="./assets/logo-white.webp" alt="Well couture STUDIO" style="display:block;height:24px;width:auto">
+  </header>
+
+  <main style="flex:1;display:flex;flex-direction:column;gap:28px;padding:48px 30px 56px;text-align:center;animation:fadeUp 1s ease both">
+    <div style="display:flex;flex-direction:column;gap:10px;align-items:center">
+      <span style="font-family:'Marigold',cursive;font-size:34px;color:#d8cfbc;line-height:1.2">Thank you</span>
+      <span style="font-size:14px;letter-spacing:0.22em;color:#f2efe8">ご予約ありがとうございます</span>
+      <span style="width:28px;height:1px;background:rgba(233,228,217,0.3);margin-top:6px"></span>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:14px;background:rgba(239,236,230,0.06);border:1px solid rgba(233,228,217,0.16);padding:24px 20px">
+      <div style="display:flex;flex-direction:column;gap:4px">
+        <span style="font-size:9px;letter-spacing:0.3em;color:#a99f8e">DATE</span>
+        <span style="font-family:'Hunter',serif;font-size:20px;letter-spacing:0.06em;color:#f2efe8">{{ bookingLabel }}</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:4px;border-top:1px solid rgba(233,228,217,0.14);padding-top:14px">
+        <span style="font-size:9px;letter-spacing:0.3em;color:#a99f8e">ADDRESS</span>
+        <span style="font-size:12px;line-height:1.9;letter-spacing:0.06em;color:#e9e4d9">東京都目黒区(目黒駅 徒歩5分)<br>※詳しい場所はご連絡時にご案内いたします</span>
+      </div>
+    </div>
+
+    <p style="margin:0;font-size:12px;line-height:2.2;letter-spacing:0.08em;color:#c9c1b1">当日お会いできることを、<br>スタッフ一同楽しみにしております。</p>
+
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <p style="margin:0;font-size:11px;line-height:2;letter-spacing:0.06em;color:#a99f8e">ご予約の確認・当日のご連絡はLINEで行います。<br>下のボタンから追加をお願いいたします。</p>
+      <a href="https://line.me/ti/p/%40132onmcg" target="_blank" rel="noopener" style="display:block;font-size:12px;letter-spacing:0.2em;color:#ffffff;background:#06C755;padding:16px">LINEを追加する</a>
+    </div>
+  </main>
+
+  <footer style="display:flex;flex-direction:column;gap:16px;align-items:center;padding:0 30px 44px;text-align:center">
+    <a href="./index.html" style="display:block;width:100%;box-sizing:border-box;font-size:11px;letter-spacing:0.22em;color:#e9e4d9;border:1px solid rgba(233,228,217,0.35);padding:14px">HPへ戻る</a>
+    <span style="font-size:8px;letter-spacing:0.14em;color:#6b6254">© 2026 Well couture STUDIO</span>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:844}}">
+class Component extends DCLogic {
+  renderVals() {
+    let label = 'ご予約内容を確認中';
+    try {
+      const b = JSON.parse(localStorage.getItem('wc-booking') || 'null');
+      if (b && b.date && b.time) {
+        const d = new Date(b.date + 'T00:00:00');
+        label = (d.getMonth() + 1) + '月' + d.getDate() + '日(' + '日月火水木金土'[d.getDay()] + ') ' + b.time;
+      }
+    } catch (e) {}
+    return { bookingLabel: label };
+  }
+}
+</script>
+</body>
+</html>

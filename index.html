@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Well couture STUDIO | 東京・目黒のウェディングフォトスタジオ</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<script src="./assets/image-slot.js"></script>
+<style>
+@font-face{font-family:'Hunter';src:url('./assets/Hunter.otf') format('opentype');font-display:swap}
+@font-face{font-family:'Marigold';src:url('./assets/MARIGOLD.otf') format('opentype');font-display:swap}
+body{margin:0;background:#141210;font-family:'Shippori Mincho',serif;-webkit-font-smoothing:antialiased}
+a{color:#3d372f;text-decoration:none}
+a:hover{color:#8a7f6f}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+[data-reveal]{opacity:0;transform:translateY(18px);transition:opacity .9s ease,transform .9s ease}
+[data-reveal].rv-in{opacity:1;transform:none}
+[data-carousel]::-webkit-scrollbar{display:none}
+</style>
+</helmet>
+<div style="max-width:430px;margin:0 auto;background:#efece6;color:#3d372f;position:relative;min-height:100vh;padding-bottom:76px" data-screen-label="Wedding Studio v3 スタジオ特化LP">
+
+  <header style="position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:rgba(20,18,16,0.86);backdrop-filter:blur(10px)">
+    <img src="./assets/logo-white.webp" alt="Well couture STUDIO" style="display:block;height:26px;width:auto">
+    <a href="#form" style="font-size:10px;letter-spacing:0.18em;color:#141210;background:#e9e4d9;padding:9px 14px">来店予約</a>
+  </header>
+  <nav style="position:sticky;top:57px;z-index:49;display:flex;justify-content:center;gap:16px;padding:9px 12px;background:rgba(20,18,16,0.86);border-top:1px solid rgba(233,228,217,0.14)">
+    <a href="#about" style="font-size:9px;letter-spacing:0.22em;color:#c9c1b1">ABOUT</a>
+    <a href="#studio" style="font-size:9px;letter-spacing:0.22em;color:#c9c1b1">STUDIO</a>
+    <a href="#dress" style="font-size:9px;letter-spacing:0.22em;color:#c9c1b1">DRESS</a>
+    <a href="#hair" style="font-size:9px;letter-spacing:0.22em;color:#c9c1b1">HAIR</a>
+    <a href="#plan" style="font-size:9px;letter-spacing:0.22em;color:#c9c1b1">PLAN</a>
+  </nav>
+
+  <!-- HERO -->
+  <section style="position:relative;background:#141210">
+    <img src="./assets/hero.webp" alt="ウェディングドレスの花嫁" style="display:block;width:100%;height:540px;object-fit:cover;opacity:0.88">
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,18,16,0.25) 0%,rgba(20,18,16,0) 35%,rgba(20,18,16,0.72) 100%)"></div>
+    <div style="position:absolute;left:0;right:0;bottom:0;padding:0 22px 26px;display:flex;flex-direction:column;gap:14px;animation:fadeUp 1.2s ease both">
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <span style="font-family:'Marigold',cursive;font-size:21px;color:#ffffff;line-height:1.2;white-space:nowrap">Well couture Signature</span>
+        <span style="font-family:'Hunter',serif;font-size:20px;letter-spacing:0.22em;color:#ffffff">WEDDING PHOTO</span>
+        <span style="font-size:12px;letter-spacing:0.14em;line-height:1.9;color:#ffffff;margin-top:4px">至高のデザイナーズウェディング</span>
+      </div>
+      <sc-if value="{{ showCampaign }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:rgba(239,236,230,0.94);padding:13px 16px">
+          <span style="font-size:11.5px;letter-spacing:0.08em;color:#141210;white-space:nowrap">オープン記念特典 DRESS +1着無料</span>
+          <a href="#form" style="flex:none;font-size:9px;letter-spacing:0.2em;color:#f2efe8;background:#141210;padding:10px 12px">RESERVATION</a>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" style="padding:64px 26px 58px;display:flex;flex-direction:column;gap:22px">
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <span style="font-family:'Hunter',serif;font-size:24px;letter-spacing:0.12em;color:#3d372f">ABOUT</span>
+      <span style="width:28px;height:1px;background:#b3a78f"></span>
+    </div>
+    <h2 style="margin:0;font-size:17px;font-weight:500;letter-spacing:0.14em;line-height:2.1;color:#2e2922">美しさを仕立てる、<br>至高のデザイナーズウェディング。</h2>
+    <p style="margin:0;font-size:12.5px;line-height:2.3;letter-spacing:0.06em;color:#6b6254;text-wrap:pretty">著名人のウェディングやラグジュアリー空間を手がけてきたデザイナーが、花嫁の美しさと、結婚式の世界観を一貫して設計します。</p>
+    <p style="margin:0;font-size:12.5px;line-height:2.3;letter-spacing:0.06em;color:#6b6254;text-wrap:pretty">数多くの花嫁から支持されるヘアメイクアーティストやパリコレのデザイナーが、洗練されたクリエイションを提供します。身体のラインを美しく見せるために仕立てたオリジナルドレスと、世界中から厳選したインポートドレスが揃う。</p>
+    <p style="margin:0;font-size:12.5px;line-height:2.3;letter-spacing:0.06em;color:#6b6254;text-wrap:pretty">一枚が結婚のかけがえのないストーリーとなり、人生の記憶として残っていく。大切な瞬間が最高のクリエイションになるよう寄り添います。</p>
+    <div style="display:flex;flex-direction:column;gap:10px;padding-top:2px">
+      <span style="font-size:13px;letter-spacing:0.12em;line-height:1.9;color:#2e2922">美しさを仕立てる、<br>新しいウェディングのかたちです。</span>
+      <span style="font-size:9px;letter-spacing:0.32em;color:#8a7f6f">DIRECTED BY A DESIGNER</span>
+    </div>
+    <div data-carousel="" style="display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;margin:8px -26px 0;padding:0 26px">
+      <image-slot id="v3-gal-1" src="./assets/photos/48.webp" shape="rect" style="flex:none;width:170px;height:210px" placeholder="ギャラリー 1"></image-slot>
+      <image-slot id="v3-gal-2" src="./assets/photos/61.webp" shape="rect" style="flex:none;width:170px;height:210px" placeholder="ギャラリー 2"></image-slot>
+      <image-slot id="v3-gal-3" src="./assets/photos/65.webp" shape="rect" style="flex:none;width:170px;height:210px" placeholder="ギャラリー 3"></image-slot>
+      <image-slot id="v3-gal-4" src="./assets/photos/74.webp" shape="rect" style="flex:none;width:170px;height:210px" placeholder="ギャラリー 4"></image-slot>
+      <image-slot id="v3-gal-5" src="./assets/photos/81.webp" shape="rect" style="flex:none;width:170px;height:210px" placeholder="ギャラリー 5"></image-slot>
+    </div>
+  </section>
+
+  <!-- STUDIO -->
+  <section id="studio" style="padding:20px 0 0;background:#f6f4ee;display:flex;flex-direction:column">
+    <div style="padding:56px 26px 0;display:flex;flex-direction:column;gap:20px">
+      <div style="display:flex;flex-direction:column;gap:6px" data-reveal="">
+        <span style="font-size:9px;letter-spacing:0.32em;color:#8a7f6f">CHAPTER 01</span>
+        <span style="font-family:'Hunter',serif;font-size:26px;letter-spacing:0.1em;color:#3d372f;line-height:1.2">THE STUDIO</span>
+        <span style="font-size:10px;letter-spacing:0.24em;color:#8a7f6f">一日一組さま、貸切のスタジオで</span>
+      </div>
+      <p style="margin:0;font-size:12.5px;line-height:2.3;letter-spacing:0.06em;color:#6b6254;text-wrap:pretty">目黒駅から徒歩5分。一日一組さまの貸切スタジオは、撮影ごとに設えを組み替えます。キャンドルを灯した夜の部屋、花に満ちた部屋、装飾を削いだ白とグレーの背景。おふたりの世界観に合わせて、空間そのものから仕立てます。</p>
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px">
+        <div style="display:flex;flex-direction:column;gap:7px;min-width:0">
+          <image-slot id="v3-studio-1" src="./assets/photos/80.webp" shape="rect" style="width:100%;height:200px" placeholder="スタジオの写真"></image-slot>
+          <span style="font-size:8px;letter-spacing:0.24em;color:#8a7f6f;text-align:center">ONE DAY, ONE COUPLE</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:7px;margin-top:28px;min-width:0">
+          <image-slot id="v3-studio-2" src="./assets/photos/69.webp" shape="rect" style="width:100%;height:200px" placeholder="撮影風景の写真"></image-slot>
+          <span style="font-size:8px;letter-spacing:0.24em;color:#8a7f6f;text-align:center">NATURAL LIGHT</span>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:22px;margin-top:6px" data-reveal="">
+        <span style="font-size:10px;letter-spacing:0.26em;color:#8a7f6f">SET STYLE</span>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
+            <span style="font-size:11px;letter-spacing:0.2em;color:#3d372f">FLOWER STYLE</span>
+            <span style="font-size:10.5px;color:#6b6254">生花で満たした、やわらかな空間。</span>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px">
+            <image-slot id="v3-style-flower" src="./assets/photos/style-flower.webp" shape="rect" style="width:100%;height:150px" placeholder="フラワースタイル 1"></image-slot>
+            <image-slot id="v3-style-flower-2" shape="rect" style="width:100%;height:150px" placeholder="フラワースタイル 2"></image-slot>
+            <image-slot id="v3-style-flower-3" shape="rect" style="width:100%;height:150px" placeholder="フラワースタイル 3"></image-slot>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
+            <span style="font-size:11px;letter-spacing:0.2em;color:#3d372f">NIGHT STYLE</span>
+            <span style="font-size:10.5px;color:#6b6254">キャンドルの灯りだけで撮る一枚。</span>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px">
+            <image-slot id="v3-style-night" src="./assets/photos/style-night.webp" shape="rect" style="width:100%;height:150px" placeholder="ナイトスタイル 1"></image-slot>
+            <image-slot id="v3-style-night-2" shape="rect" style="width:100%;height:150px" placeholder="ナイトスタイル 2"></image-slot>
+            <image-slot id="v3-style-night-3" shape="rect" style="width:100%;height:150px" placeholder="ナイトスタイル 3"></image-slot>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;border-top:1px solid rgba(61,55,47,0.14);padding-top:16px">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
+            <span style="font-size:11px;letter-spacing:0.2em;color:#3d372f">PLAIN WHITE / GREY</span>
+          </div>
+          <span style="font-size:10.5px;line-height:1.9;color:#6b6254">装飾のない白背景と、陰影の美しいグレー背景。表情だけを写す、静かで端正な一枚に。</span>
+        </div>
+        <p style="margin:0;font-size:10.5px;line-height:1.9;letter-spacing:0.04em;color:#8a7f6f">※ 装花・キャンドル等の造作は内容により別途お見積もりとなります。</p>
+      </div>
+    </div>
+
+    <!-- DRESS -->
+    <div id="dress" style="margin-top:44px;padding:44px 22px;background:#141210;display:flex;flex-direction:column;gap:20px">
+      <div style="display:flex;flex-direction:column;gap:6px" data-reveal="">
+        <span style="font-size:9px;letter-spacing:0.32em;color:#a99f8e">CHAPTER 02</span>
+        <span style="font-family:'Hunter',serif;font-size:24px;letter-spacing:0.1em;color:#f2efe8">DRESS COLLECTION</span>
+        <span style="font-size:10px;letter-spacing:0.12em;line-height:1.9;color:#a99f8e">世界中から厳選したインポートドレスと、身体のラインを美しく見せる仕立てのオリジナルドレスを取り揃えています。</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px;padding-top:4px">
+        <span style="font-size:9px;letter-spacing:0.26em;color:#a99f8e">BRANDS</span>
+        <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px">
+          <image-slot id="v3-brand-1" shape="rect" style="width:100%;height:56px" placeholder="ブランドロゴ 1"></image-slot>
+          <image-slot id="v3-brand-2" shape="rect" style="width:100%;height:56px" placeholder="ブランドロゴ 2"></image-slot>
+          <image-slot id="v3-brand-3" shape="rect" style="width:100%;height:56px" placeholder="ブランドロゴ 3"></image-slot>
+          <image-slot id="v3-brand-4" shape="rect" style="width:100%;height:56px" placeholder="ブランドロゴ 4"></image-slot>
+          <image-slot id="v3-brand-5" shape="rect" style="width:100%;height:56px" placeholder="ブランドロゴ 5"></image-slot>
+          <image-slot id="v3-brand-6" shape="rect" style="width:100%;height:56px" placeholder="ブランドロゴ 6"></image-slot>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <span style="font-size:9.5px;letter-spacing:0.14em;color:#d8cfbc;border:1px solid rgba(233,228,217,0.28);padding:6px 10px">PARIS</span>
+          <span style="font-size:9.5px;letter-spacing:0.14em;color:#d8cfbc;border:1px solid rgba(233,228,217,0.28);padding:6px 10px">MILANO</span>
+          <span style="font-size:9.5px;letter-spacing:0.14em;color:#d8cfbc;border:1px solid rgba(233,228,217,0.28);padding:6px 10px">NEW YORK</span>
+          <span style="font-size:9.5px;letter-spacing:0.14em;color:#d8cfbc;border:1px solid rgba(233,228,217,0.28);padding:6px 10px">ORIGINAL</span>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-size:9px;letter-spacing:0.26em;color:#a99f8e">DRESS SAMPLE</span>
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px">
+          <image-slot id="v3-dress-1" src="./assets/photos/73.webp" shape="rect" style="width:100%;height:220px" placeholder="ドレス写真 1"></image-slot>
+          <image-slot id="v3-dress-2" src="./assets/photos/82.webp" shape="rect" style="width:100%;height:220px;min-width:0" placeholder="ドレス写真 2"></image-slot>
+          <image-slot id="v3-dress-3" src="./assets/photos/76.webp" shape="rect" style="width:100%;height:220px" placeholder="ドレス写真 3"></image-slot>
+          <image-slot id="v3-dress-4" src="./assets/photos/83.webp" shape="rect" style="width:100%;height:220px" placeholder="ドレス写真 4"></image-slot>
+        </div>
+      </div>
+      <p style="margin:0;font-size:11px;line-height:1.9;letter-spacing:0.05em;color:#a99f8e">挙式当日のドレスレンタルのみのご利用も承ります。</p>
+      <a href="./dress.html" style="display:block;text-align:center;font-size:10px;letter-spacing:0.24em;color:#f2efe8;border:1px solid rgba(233,228,217,0.4);padding:13px">ドレス一覧を見る<span style="font-family:'Hunter',serif"> →</span></a>
+    </div>
+
+    <!-- HAIR & MAKE -->
+    <div id="hair" style="padding:0 26px 44px;display:flex;flex-direction:column;gap:22px">
+      <div style="margin:0 -26px;padding:0 26px;box-sizing:border-box;display:flex;flex-direction:column;gap:10px;background:linear-gradient(90deg,rgba(246,244,238,0.9) 0%,rgba(246,244,238,0.55) 40%,rgba(246,244,238,0) 66%),url('./assets/photos/hairmake-hero.webp') center/cover no-repeat;aspect-ratio:1980/1080;justify-content:center">
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <span style="font-size:9px;letter-spacing:0.32em;color:#6b6254">CHAPTER 03</span>
+          <span style="font-family:'Hunter',serif;font-size:22px;letter-spacing:0.12em;color:#3d372f">HAIR &amp; MAKE</span>
+        </div>
+        <p style="margin:0;max-width:62%;font-size:12px;line-height:2.2;letter-spacing:0.06em;color:#4a4438;text-wrap:pretty">花嫁様の魅力を引き出す<br>洗練されたヘアメイクスタイル。<br>特別な一日を、最高に美しいあなたで。</p>
+      </div>
+      <div style="background:#efece6;padding:20px 18px;display:flex;gap:16px;align-items:flex-start" data-reveal="">
+        <image-slot id="v3-mika" src="./assets/photos/mika.webp" shape="rect" style="flex:none;width:118px;height:150px" placeholder="Mikaさんの写真"></image-slot>
+        <div style="display:flex;flex-direction:column;gap:6px;min-width:0">
+          <span style="font-size:9px;letter-spacing:0.26em;color:#8a7f6f">HAIR MAKE PRODUCE</span>
+          <span style="font-family:'Hunter',serif;font-size:19px;letter-spacing:0.06em;color:#2e2922">Mika Takemoto</span>
+          <span style="width:24px;height:1px;background:#b3a78f;margin:4px 0"></span>
+          <p style="margin:0;font-size:11.5px;line-height:2.1;letter-spacing:0.05em;color:#6b6254;text-wrap:pretty">「My Dresser Bridal」代表。Instagramフォロワー7.6万人、多くの花嫁から支持されるヘアメイクアーティスト。</p>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-size:10px;letter-spacing:0.26em;color:#8a7f6f">HAIRSTYLE</span>
+        <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px">
+          <div style="display:flex;flex-direction:column;gap:7px;min-width:0">
+            <image-slot id="v3-hair-1" src="./assets/photos/55.webp" shape="rect" style="width:100%;height:130px" placeholder="シニヨン"></image-slot>
+            <span style="font-size:8.5px;letter-spacing:0.08em;color:#3d372f;line-height:1.5">01. CLASSIC LOW BUN</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:7px;min-width:0">
+            <image-slot id="v3-hair-2" src="./assets/photos/49.webp" shape="rect" style="width:100%;height:130px" placeholder="まとめ髪"></image-slot>
+            <span style="font-size:8.5px;letter-spacing:0.08em;color:#3d372f;line-height:1.5">02. ELEGANT TWIST</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:7px;min-width:0">
+            <image-slot id="v3-hair-3" src="./assets/photos/58.webp" shape="rect" style="width:100%;height:130px" placeholder="アップ"></image-slot>
+            <span style="font-size:8.5px;letter-spacing:0.08em;color:#3d372f;line-height:1.5">03. ROMANTIC UP</span>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;border-top:1px solid rgba(61,55,47,0.14);padding-top:18px">
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <span style="flex:none;font-size:8.5px;letter-spacing:0.14em;color:#3d372f;background:#e7e2d7;padding:5px 8px;width:40px;text-align:center">HAIR</span>
+          <span style="font-size:11px;line-height:1.9;letter-spacing:0.04em;color:#6b6254">ドレスやアクセサリーとのバランスを大切に、一人ひとりの魅力を引き出すスタイルをご提案。</span>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <span style="flex:none;font-size:8.5px;letter-spacing:0.14em;color:#3d372f;background:#e7e2d7;padding:5px 8px;width:40px;text-align:center">MAKE</span>
+          <span style="font-size:11px;line-height:1.9;letter-spacing:0.04em;color:#6b6254">透明感のあるツヤ肌に、上品な目元。写真映えする美しさを大切に。</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACCESSORY -->
+    <div id="accessory" style="padding:44px 26px 48px;background:#efece6;display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;flex-direction:column;gap:6px" data-reveal="">
+        <span style="font-size:9px;letter-spacing:0.32em;color:#8a7f6f">CHAPTER 04</span>
+        <span style="font-family:'Hunter',serif;font-size:24px;letter-spacing:0.1em;color:#3d372f;line-height:1.2">HEAD ACCESSORY</span>
+        <span style="font-size:10px;letter-spacing:0.2em;color:#8a7f6f">髪飾り・ヘッドドレス</span>
+      </div>
+      <p style="margin:0;font-size:12px;line-height:2.1;letter-spacing:0.06em;color:#6b6254;text-wrap:pretty">ティアラ、パール、生花。ドレスとヘアスタイルに合わせて、当日その場でお選びいただけます。</p>
+      <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px">
+        <div style="display:flex;flex-direction:column;gap:7px;min-width:0">
+          <image-slot id="v3-acc-1" shape="rect" style="width:100%;height:130px" placeholder="ティアラ"></image-slot>
+          <span style="font-size:8.5px;letter-spacing:0.08em;color:#3d372f">01. TIARA</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:7px;min-width:0">
+          <image-slot id="v3-acc-2" shape="rect" style="width:100%;height:130px" placeholder="パール・ヘッドドレス"></image-slot>
+          <span style="font-size:8.5px;letter-spacing:0.08em;color:#3d372f">02. PEARL PIN</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:7px;min-width:0">
+          <image-slot id="v3-acc-3" shape="rect" style="width:100%;height:130px" placeholder="生花・ヴェール"></image-slot>
+          <span style="font-size:8.5px;letter-spacing:0.08em;color:#3d372f">03. FLOWER &amp; VEIL</span>
+        </div>
+      </div>
+      <span style="font-size:10.5px;line-height:1.9;letter-spacing:0.04em;color:#8a7f6f">※ 髪飾り・ヴェール・グローブはプラン内でご利用いただけます。</span>
+    </div>
+
+    <!-- PLAN -->
+    <div id="plan" style="padding:44px 22px 56px;background:#e7e2d7;display:flex;flex-direction:column;gap:20px">
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <span style="font-size:9px;letter-spacing:0.32em;color:#8a7f6f">CHAPTER 05</span>
+        <span style="font-family:'Hunter',serif;font-size:24px;letter-spacing:0.12em;color:#3d372f">PHOTO PLAN</span>
+        <span style="font-size:10px;letter-spacing:0.2em;color:#8a7f6f">撮影プランはひとつのみ。追加費用は明朗に。</span>
+      </div>
+      <div style="background:#f6f4ee;padding:26px 22px;display:flex;flex-direction:column;gap:18px;box-shadow:0 1px 0 rgba(61,55,47,0.08)" data-reveal="">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <span style="font-size:8px;letter-spacing:0.32em;color:#8a7f6f">WEDDING PHOTO PLAN</span>
+          <span style="font-family:'Hunter',serif;font-size:22px;letter-spacing:0.08em;color:#2e2922">Signature Plan</span>
+          <div style="display:flex;align-items:baseline;gap:8px">
+            <span style="font-family:'Hunter',serif;font-size:26px;color:#2e2922">¥328,000</span>
+            <span style="font-size:10px;color:#8a7f6f">(税込)〜</span>
+          </div>
+        </div>
+        <image-slot id="v3-plan-photo" src="./assets/photos/plan-veil.webp" shape="rect" style="width:100%;height:190px" placeholder="プランのイメージ写真"></image-slot>
+        <div style="display:flex;flex-direction:column;gap:9px;border-top:1px solid rgba(61,55,47,0.14);padding-top:16px">
+          <span style="font-size:9px;letter-spacing:0.26em;color:#8a7f6f">プラン内容</span>
+          <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px;font-size:12px;letter-spacing:0.05em;line-height:1.7;color:#4a4438">
+            <li>・ ドレス・タキシード 各1着</li>
+            <li>・ ヘアメイク・着付け・リハーサル</li>
+            <li>・ スタジオ撮影 2時間(貸切)</li>
+            <li>・ 全データ納品 150カット以上(色調補正込み)</li>
+            <li>・ ビューティーレタッチ 5カット</li>
+          </ul>
+        </div>
+        <a href="#form" style="display:block;text-align:center;font-size:11px;letter-spacing:0.24em;color:#f2efe8;background:#141210;padding:14px">このプランで相談する</a>
+      </div>
+      <p style="margin:0;font-size:10px;line-height:1.8;letter-spacing:0.04em;color:#8a7f6f">※ 表示は2026年8月現在。土日祝は+¥22,000。お支払いは現金・各種クレジット・銀行振込に対応しています。</p>
+    </div>
+  </section>
+
+  <!-- OPTION -->
+  <section id="option" style="padding:56px 22px 60px;background:#f6f4ee;display:flex;flex-direction:column;gap:24px">
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <span style="font-family:'Hunter',serif;font-size:24px;letter-spacing:0.12em;color:#3d372f">OPTION</span>
+      <span style="font-size:10px;letter-spacing:0.2em;color:#8a7f6f">撮影のあとに、できること</span>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:12px" data-reveal="">
+      <image-slot id="v3-opt-album" shape="rect" style="width:100%;height:200px" placeholder="アルバムの写真"></image-slot>
+      <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
+        <span style="font-size:13px;letter-spacing:0.1em;color:#2e2922">アルバム / フォトブック制作</span>
+        <span style="flex:none;font-family:'Hunter',serif;font-size:16px;color:#3d372f">¥38,500〜</span>
+      </div>
+      <p style="margin:0;font-size:11.5px;line-height:2;letter-spacing:0.05em;color:#6b6254;text-wrap:pretty">デザイナーがセレクトとレイアウトを担当。手触りのよい表紙素材と、開きの美しいフラット製本。ご両親への贈呈用の小さな一冊も承ります。</p>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:12px;border-top:1px solid rgba(61,55,47,0.14);padding-top:24px" data-reveal="">
+      <image-slot id="v3-opt-location" shape="rect" style="width:100%;height:200px" placeholder="ロケーション撮影の写真"></image-slot>
+      <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
+        <span style="font-size:13px;letter-spacing:0.1em;color:#2e2922">ロケーション撮影追加(都内)</span>
+        <span style="flex:none;font-family:'Hunter',serif;font-size:16px;color:#3d372f">¥55,000</span>
+      </div>
+      <p style="margin:0;font-size:11.5px;line-height:2;letter-spacing:0.05em;color:#6b6254;text-wrap:pretty">スタジオ撮影に半日のロケーションを追加。街並み、庭園、水辺。おふたりの思い出の場所へもご一緒します。</p>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:12px;border-top:1px solid rgba(61,55,47,0.14);padding-top:24px" data-reveal="">
+      <image-slot id="v3-opt-board" shape="rect" style="width:100%;height:200px" placeholder="ウェルカムボードの写真"></image-slot>
+      <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
+        <span style="font-size:13px;letter-spacing:0.1em;color:#2e2922">ウェルカムボード・アートパネル</span>
+        <span style="flex:none;font-size:10px;color:#8a7f6f">個別お見積もり</span>
+      </div>
+      <p style="margin:0;font-size:11.5px;line-height:2;letter-spacing:0.05em;color:#6b6254;text-wrap:pretty">撮影した一枚を、会場に飾るかたちへ。ウェルカムボードや大判のアートパネル、ウェルカムスペースの設計から当日の設営・撤去までお任せいただけます。</p>
+    </div>
+  </section>
+
+  <!-- FLOW -->
+  <section style="padding:56px 22px 60px;background:#e7e2d7;display:flex;flex-direction:column;gap:24px">
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <span style="font-family:'Hunter',serif;font-size:24px;letter-spacing:0.12em;color:#3d372f">FLOW</span>
+      <span style="font-size:10px;letter-spacing:0.2em;color:#8a7f6f">ご予約から納品まで</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:0">
+      <sc-for list="{{ flow }}" as="step" hint-placeholder-count="4">
+        <div style="display:flex;gap:16px;padding:16px 0;border-top:1px solid rgba(61,55,47,0.14)">
+          <span style="flex:none;font-family:'Hunter',serif;font-size:17px;color:#8a7f6f;width:32px">{{ step.no }}</span>
+          <div style="display:flex;flex-direction:column;gap:5px">
+            <span style="font-size:13px;letter-spacing:0.1em;color:#2e2922">{{ step.title }}</span>
+            <span style="font-size:11px;line-height:1.9;letter-spacing:0.04em;color:#6b6254">{{ step.body }}</span>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- OTHER SERVICES (compact) -->
+  <section id="more" style="padding:52px 22px 56px;background:#141210;display:flex;flex-direction:column;gap:20px">
+    <div style="display:flex;flex-direction:column;gap:6px" data-reveal="">
+      <span style="font-size:9px;letter-spacing:0.32em;color:#a99f8e">ALSO AT WELL COUTURE</span>
+      <span style="font-family:'Hunter',serif;font-size:22px;letter-spacing:0.1em;color:#f2efe8;line-height:1.3">WEDDING PRODUCE</span>
+      <span style="font-size:10.5px;letter-spacing:0.1em;line-height:1.9;color:#a99f8e">撮影したその一枚から、結婚式当日まで。ご希望に応じてお手伝いします。</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px" data-reveal="">
+      <div style="display:flex;gap:14px;align-items:center;border-top:1px solid rgba(233,228,217,0.16);padding-top:14px">
+        <image-slot id="v3-more-1" shape="rect" style="flex:none;width:96px;height:96px" placeholder="ウェルカムボード"></image-slot>
+        <div style="display:flex;flex-direction:column;gap:5px;min-width:0">
+          <span style="font-size:12px;letter-spacing:0.1em;color:#f2efe8">ウェディングデザインプロデュース</span>
+          <span style="font-size:10.5px;line-height:1.9;color:#a99f8e">ウェルカムボード、アートパネル、ウェルカムスペースの設計・設営まで。</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:center;border-top:1px solid rgba(233,228,217,0.16);padding-top:14px">
+        <image-slot id="v3-more-2" shape="rect" style="flex:none;width:96px;height:96px" placeholder="テラスウェディング"></image-slot>
+        <div style="display:flex;flex-direction:column;gap:5px;min-width:0">
+          <span style="font-size:12px;letter-spacing:0.1em;color:#f2efe8">テラスウェディング(高輪ゲートウェイ)</span>
+          <span style="font-size:10.5px;line-height:1.9;color:#a99f8e">水辺と都心の景色を望む自社会場でのウェディングパーティー。</span>
+        </div>
+      </div>
+    </div>
+    <a href="./produce.html" style="display:block;text-align:center;font-size:10px;letter-spacing:0.24em;color:#f2efe8;border:1px solid rgba(233,228,217,0.4);padding:13px">プロデュースについて相談する<span style="font-family:'Hunter',serif"> →</span></a>
+  </section>
+
+  <!-- FAQ -->
+  <section style="padding:56px 22px;display:flex;flex-direction:column;gap:20px">
+    <span style="font-family:'Hunter',serif;font-size:24px;letter-spacing:0.12em;color:#3d372f">FAQ</span>
+    <div style="display:flex;flex-direction:column">
+      <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="4">
+        <div style="border-top:1px solid rgba(61,55,47,0.14)">
+          <button onClick="{{ f.toggle }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;background:none;border:none;padding:15px 2px;cursor:pointer;font-family:'Shippori Mincho',serif;text-align:left">
+            <span style="font-size:12.5px;letter-spacing:0.06em;color:#2e2922;line-height:1.6">{{ f.q }}</span>
+            <span style="flex:none;font-family:'Hunter',serif;font-size:15px;color:#8a7f6f">{{ f.mark }}</span>
+          </button>
+          <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}">
+            <p style="margin:0;padding:0 2px 16px;font-size:11.5px;line-height:2;letter-spacing:0.04em;color:#6b6254">{{ f.a }}</p>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- RESERVE -->
+  <section id="reserve" style="padding:60px 26px;background:#141210;display:flex;flex-direction:column;gap:22px;text-align:center">
+    <div style="display:flex;flex-direction:column;gap:8px;align-items:center">
+      <span style="font-family:'Marigold',cursive;font-size:26px;color:#d8cfbc">Reservation</span>
+      <span style="font-size:15px;letter-spacing:0.18em;color:#f2efe8">来店予約・ご相談</span>
+      <p style="margin:0;font-size:11px;line-height:2;letter-spacing:0.05em;color:#a99f8e">ドレス見学のみでも歓迎です。所要約60分、<br>無理なご案内は一切いたしません。</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <a href="#form" style="display:block;font-size:12px;letter-spacing:0.2em;color:#141210;background:#e9e4d9;padding:16px">来店予約フォームへ(無料)</a>
+      <sc-if value="{{ lineOfficial }}" hint-placeholder-val="{{ true }}">
+        <a href="https://line.me/ti/p/%40132onmcg" target="_blank" rel="noopener" style="display:block;font-size:12px;letter-spacing:0.2em;color:#ffffff;background:#06C755;padding:16px">LINEで相談・予約する</a>
+      </sc-if>
+      <sc-if value="{{ lineMono }}" hint-placeholder-val="{{ false }}">
+        <a href="https://line.me/ti/p/%40132onmcg" target="_blank" rel="noopener" style="display:block;font-size:12px;letter-spacing:0.2em;color:#e9e4d9;background:none;border:1px solid #6b6254;padding:15px">LINEで相談・予約する</a>
+      </sc-if>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:4px;border-top:1px solid rgba(233,228,217,0.16);padding-top:18px">
+      <span style="font-size:9px;letter-spacing:0.3em;color:#a99f8e">TEL</span>
+      <a href="tel:0312345678" style="font-family:'Hunter',serif;font-size:22px;letter-spacing:0.08em;color:#f2efe8">03-1234-5678</a>
+      <span style="font-size:10px;letter-spacing:0.08em;color:#a99f8e">受付 11:00 - 19:00(火・水曜定休)</span>
+    </div>
+  </section>
+
+  <!-- ACCESS -->
+  <section id="access" style="padding:56px 26px 64px;display:flex;flex-direction:column;gap:18px">
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <span style="font-family:'Hunter',serif;font-size:24px;letter-spacing:0.12em;color:#3d372f">ACCESS</span>
+      <span style="width:28px;height:1px;background:#b3a78f"></span>
+    </div>
+    <image-slot id="v3-access" shape="rect" style="width:100%;height:220px" placeholder="スタジオ内観の写真"></image-slot>
+    <div style="display:flex;flex-direction:column;gap:10px;font-size:12px;line-height:1.9;letter-spacing:0.05em;color:#4a4438">
+      <div style="display:flex;gap:14px"><span style="flex:none;width:58px;font-size:10px;letter-spacing:0.2em;color:#8a7f6f;padding-top:2px">STUDIO</span><span>Well couture STUDIO</span></div>
+      <div style="display:flex;gap:14px"><span style="flex:none;width:58px;font-size:10px;letter-spacing:0.2em;color:#8a7f6f;padding-top:2px">ADDRESS</span><span>東京都目黒区(目黒駅周辺)<br>※詳細はご予約時にご案内いたします</span></div>
+      <div style="display:flex;gap:14px"><span style="flex:none;width:58px;font-size:10px;letter-spacing:0.2em;color:#8a7f6f;padding-top:2px">TRAIN</span><span>JR・東京メトロ「目黒駅」徒歩5分</span></div>
+      <div style="display:flex;gap:14px"><span style="flex:none;width:58px;font-size:10px;letter-spacing:0.2em;color:#8a7f6f;padding-top:2px">OPEN</span><span>11:00 - 19:00 / 火・水曜定休</span></div>
+    </div>
+    <a href="#access" style="display:inline-flex;align-self:flex-start;font-size:10px;letter-spacing:0.2em;color:#3d372f;border:1px solid #3d372f;padding:10px 18px">GOOGLE MAPで見る</a>
+  </section>
+
+  <!-- FORM -->
+  <section id="form" style="padding:56px 22px 64px;background:#e7e2d7;display:flex;flex-direction:column;gap:22px">
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <span style="font-family:'Hunter',serif;font-size:24px;letter-spacing:0.12em;color:#3d372f">RESERVATION FORM</span>
+      <span style="font-size:10px;letter-spacing:0.2em;color:#8a7f6f">来店予約フォーム(見学のみも歓迎)</span>
+    </div>
+    <div style="background:#f6f4ee;padding:22px 18px;display:flex;flex-direction:column;gap:18px">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:10px;letter-spacing:0.24em;color:#8a7f6f">1. ご希望日</span>
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <button onClick="{{ prevMonth }}" style="background:none;border:1px solid rgba(61,55,47,0.25);width:30px;height:30px;cursor:pointer;color:#3d372f;font-family:'Hunter',serif">‹</button>
+          <span style="font-size:13px;letter-spacing:0.14em;color:#2e2922">{{ monthLabel }}</span>
+          <button onClick="{{ nextMonth }}" style="background:none;border:1px solid rgba(61,55,47,0.25);width:30px;height:30px;cursor:pointer;color:#3d372f;font-family:'Hunter',serif">›</button>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px">
+          <sc-for list="{{ weekdays }}" as="w" hint-placeholder-count="7">
+            <span style="text-align:center;font-size:9px;letter-spacing:0.1em;color:#8a7f6f;padding:4px 0">{{ w }}</span>
+          </sc-for>
+          <sc-for list="{{ days }}" as="d" hint-placeholder-count="35">
+            <button onClick="{{ d.pick }}" disabled="{{ d.disabled }}" style="border:none;height:36px;cursor:pointer;font-family:'Shippori Mincho',serif;font-size:12px;background:{{ d.bg }};color:{{ d.fg }}">{{ d.label }}</button>
+          </sc-for>
+        </div>
+        <span style="font-size:9px;letter-spacing:0.06em;color:#8a7f6f">※ 火・水曜は定休日のため選択できません</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:10px;letter-spacing:0.24em;color:#8a7f6f">2. ご希望時間</span>
+        <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px">
+          <sc-for list="{{ times }}" as="t" hint-placeholder-count="8">
+            <button onClick="{{ t.pick }}" style="border:1px solid rgba(61,55,47,0.25);padding:9px 0;cursor:pointer;font-family:'Hunter',serif;font-size:12px;letter-spacing:0.05em;background:{{ t.bg }};color:{{ t.fg }}">{{ t.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-size:10px;letter-spacing:0.24em;color:#8a7f6f">3. お客さま情報</span>
+        <label style="display:flex;flex-direction:column;gap:5px">
+          <span style="font-size:11px;letter-spacing:0.1em;color:#4a4438">お名前 <span style="font-size:9px;color:#a3543f">必須</span></span>
+          <input value="{{ name }}" onChange="{{ setName }}" placeholder="山田 花子" style="border:1px solid rgba(61,55,47,0.25);background:#ffffff;padding:11px 12px;font-family:'Shippori Mincho',serif;font-size:13px;color:#2e2922;outline:none">
+        </label>
+        <label style="display:flex;flex-direction:column;gap:5px">
+          <span style="font-size:11px;letter-spacing:0.1em;color:#4a4438">お電話番号 <span style="font-size:9px;color:#a3543f">必須</span></span>
+          <input value="{{ tel }}" onChange="{{ setTel }}" type="tel" placeholder="090-1234-5678" style="border:1px solid rgba(61,55,47,0.25);background:#ffffff;padding:11px 12px;font-family:'Shippori Mincho',serif;font-size:13px;color:#2e2922;outline:none">
+        </label>
+        <label style="display:flex;flex-direction:column;gap:5px">
+          <span style="font-size:11px;letter-spacing:0.1em;color:#4a4438">ご質問・ご要望(任意)</span>
+          <textarea value="{{ note }}" onChange="{{ setNote }}" rows="3" placeholder="撮影のみ希望、ドレス見学のみ など" style="border:1px solid rgba(61,55,47,0.25);background:#ffffff;padding:11px 12px;font-family:'Shippori Mincho',serif;font-size:13px;color:#2e2922;outline:none;resize:vertical"></textarea>
+        </label>
+      </div>
+      <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <span style="font-size:11px;letter-spacing:0.08em;color:#6b6254;text-align:center">{{ summary }}</span>
+          <button onClick="{{ submit }}" disabled="{{ cantSubmit }}" style="border:none;padding:16px;cursor:pointer;font-family:'Shippori Mincho',serif;font-size:12px;letter-spacing:0.2em;background:{{ submitBg }};color:{{ submitFg }}">{{ submitLabel }}</button>
+          <sc-if value="{{ hasError }}" hint-placeholder-val="{{ false }}">
+            <span style="font-size:10.5px;letter-spacing:0.05em;color:#a3543f;text-align:center">{{ errorMsg }}</span>
+          </sc-if>
+        </div>
+      </sc-if>
+      <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:6px;text-align:center;border:1px solid rgba(61,55,47,0.2);padding:18px 14px">
+          <span style="font-family:'Marigold',cursive;font-size:22px;color:#8a7f6f">Thank you</span>
+          <span style="font-size:12px;letter-spacing:0.08em;color:#2e2922">ご予約を受け付けました</span>
+          <span style="font-size:10.5px;line-height:1.9;color:#6b6254">{{ summary }}<br>確認のお電話を差し上げます。</span>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+
+  <footer style="padding:44px 26px 36px;background:#141210;display:flex;flex-direction:column;gap:18px;align-items:center;text-align:center">
+    <img src="./assets/logo-white.webp" alt="Well couture STUDIO" style="display:block;width:64%;max-width:240px;height:auto">
+    <div style="display:flex;gap:18px">
+      <a href="#about" style="font-size:9px;letter-spacing:0.2em;color:#a99f8e">ABOUT</a>
+      <a href="#studio" style="font-size:9px;letter-spacing:0.2em;color:#a99f8e">STUDIO</a>
+      <a href="#plan" style="font-size:9px;letter-spacing:0.2em;color:#a99f8e">PLAN</a>
+      <a href="#access" style="font-size:9px;letter-spacing:0.2em;color:#a99f8e">ACCESS</a>
+    </div>
+    <span style="font-size:8px;letter-spacing:0.14em;color:#6b6254">© 2026 Well couture STUDIO</span>
+  </footer>
+
+  <div style="position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;z-index:60;display:flex;box-shadow:0 -6px 20px rgba(20,18,16,0.18)">
+    <a href="#form" style="flex:1;text-align:center;font-size:11px;letter-spacing:0.16em;color:#f2efe8;background:#141210;padding:17px 0">来店予約</a>
+    <sc-if value="{{ lineOfficial }}" hint-placeholder-val="{{ true }}">
+      <a href="https://line.me/ti/p/%40132onmcg" target="_blank" rel="noopener" style="flex:1;text-align:center;font-size:11px;letter-spacing:0.16em;color:#ffffff;background:#06C755;padding:17px 0">LINE追加</a>
+    </sc-if>
+    <sc-if value="{{ lineMono }}" hint-placeholder-val="{{ false }}">
+      <a href="https://line.me/ti/p/%40132onmcg" target="_blank" rel="noopener" style="flex:1;text-align:center;font-size:11px;letter-spacing:0.16em;color:#141210;background:#d8cfbc;padding:17px 0">LINE追加</a>
+    </sc-if>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:844},&quot;showCampaign&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;キャンペーン&quot;},&quot;lineStyle&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;公式グリーン&quot;,&quot;モノトーン&quot;],&quot;default&quot;:&quot;公式グリーン&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;LINEボタン&quot;},&quot;gasUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://script.google.com/macros/s/AKfycbwZqRN8_KqI6USbxvktASGh4l6GcMfMS-OVw6H-Q9JxTPsvyWkRFVNeNx2XxSm-s3n8/exec&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;予約連携(GAS URL)&quot;}}">
+class Component extends DCLogic {
+  state = { open: 0, monthOff: 0, date: null, time: '', name: '', tel: '', note: '', sent: false, busy: {}, submitting: false, error: '' };
+  _loadBusy() {
+    const gasUrl = this.props.gasUrl ?? '';
+    if (!gasUrl) return;
+    fetch(gasUrl + (gasUrl.includes('?') ? '&' : '?') + 'days=180')
+      .then(r => r.json())
+      .then(d => this.setState({ busy: d.busy || {} }))
+      .catch(() => {});
+  }
+  componentDidMount() {
+    this._loadBusy();
+    this._io = new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('rv-in'); this._io.unobserve(e.target); }
+    }), { threshold: 0.12 });
+    document.querySelectorAll('[data-reveal]').forEach(el => this._io.observe(el));
+    const header = document.querySelector('header'), nav = document.querySelector('nav');
+    const pills = document.querySelectorAll('[data-chapter-pill]');
+    this._updPills = () => {
+      const t = (header ? header.offsetHeight : 0) + (nav ? nav.offsetHeight : 0) + 12;
+      pills.forEach(p => { p.style.top = t + 'px'; });
+    };
+    this._updPills();
+    window.addEventListener('resize', this._updPills);
+    const c = document.querySelector('[data-carousel]');
+    if (c) {
+      let paused = false;
+      c.addEventListener('pointerenter', () => { paused = true; });
+      c.addEventListener('pointerleave', () => { paused = false; });
+      c.addEventListener('touchstart', () => { paused = true; }, { passive: true });
+      c.addEventListener('touchend', () => { setTimeout(() => { paused = false; }, 2000); }, { passive: true });
+      const step = () => {
+        if (!paused) {
+          c.scrollLeft += 0.5;
+          if (c.scrollLeft >= c.scrollWidth - c.clientWidth - 1) c.scrollLeft = 0;
+        }
+        this._raf = requestAnimationFrame(step);
+      };
+      this._raf = requestAnimationFrame(step);
+    }
+  }
+  componentWillUnmount() {
+    if (this._io) this._io.disconnect();
+    if (this._raf) cancelAnimationFrame(this._raf);
+    if (this._updPills) window.removeEventListener('resize', this._updPills);
+  }
+  renderVals() {
+    const lineStyle = this.props.lineStyle ?? '公式グリーン';
+    const faqsData = [
+      ['見学や相談だけでも予約できますか?', 'はい、もちろんです。ドレス見学のみのご来店も歓迎しております。その場でのご契約をお願いすることはありません。'],
+      ['撮影当日の所要時間はどのくらいですか?', 'お支度から撮影終了まで約4時間が目安です。スタジオは完全貸切のため、ゆったりとお過ごしいただけます。'],
+      ['衣装の持ち込みはできますか?', 'ドレス・小物ともに持ち込み無料です。お手持ちの衣装での撮影もお気軽にご相談ください。'],
+      ['データの納品はいつ頃ですか?', '撮影日から約3週間でオンラインにて全データを納品いたします。お急ぎの場合はご相談ください。'],
+    ];
+    const s = this.state;
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    const base = new Date(today.getFullYear(), today.getMonth() + s.monthOff, 1);
+    const dim = new Date(base.getFullYear(), base.getMonth() + 1, 0).getDate();
+    const days = [];
+    for (let i = 0; i < base.getDay(); i++) days.push({ label: '', disabled: true, bg: 'transparent', fg: 'transparent', pick: null });
+    for (let n = 1; n <= dim; n++) {
+      const d = new Date(base.getFullYear(), base.getMonth(), n);
+      const closed = d.getDay() === 2 || d.getDay() === 3;
+      const past = d <= today;
+      const iso = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(n).padStart(2, '0');
+      const full = (s.busy[iso] || []).length >= 8;
+      const disabled = closed || past || full;
+      const sel = s.date === iso;
+      days.push({
+        label: String(n), disabled,
+        bg: sel ? '#141210' : disabled ? 'transparent' : '#ffffff',
+        fg: sel ? '#f2efe8' : disabled ? '#c3bbaa' : '#2e2922',
+        pick: disabled ? null : () => this.setState({ date: iso, sent: false }),
+      });
+    }
+    const dateLabel = s.date ? (() => { const d = new Date(s.date + 'T00:00:00'); return (d.getMonth() + 1) + '月' + d.getDate() + '日(' + '日月火水木金土'[d.getDay()] + ')'; })() : '';
+    const ready = s.date && s.time && s.name.trim() && s.tel.trim();
+    return {
+      showCampaign: this.props.showCampaign ?? true,
+      monthLabel: base.getFullYear() + '年 ' + (base.getMonth() + 1) + '月',
+      prevMonth: () => this.setState(st => ({ monthOff: Math.max(0, st.monthOff - 1) })),
+      nextMonth: () => this.setState(st => ({ monthOff: Math.min(5, st.monthOff + 1) })),
+      weekdays: ['日', '月', '火', '水', '木', '金', '土'],
+      days,
+      times: ['11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'].map(t => {
+        const taken = s.date ? (s.busy[s.date] || []).includes(t) : false;
+        return {
+          label: t,
+          bg: s.time === t ? '#141210' : taken ? 'transparent' : '#ffffff',
+          fg: s.time === t ? '#f2efe8' : taken ? '#c3bbaa' : '#2e2922',
+          pick: taken ? null : () => this.setState({ time: t, sent: false }),
+        };
+      }),
+      name: s.name, tel: s.tel, note: s.note,
+      setName: e => this.setState({ name: e.target.value }),
+      setTel: e => this.setState({ tel: e.target.value }),
+      setNote: e => this.setState({ note: e.target.value }),
+      summary: ready || s.sent ? 'ご希望日時:' + dateLabel + ' ' + s.time : '日時・お名前・お電話番号をご入力ください',
+      cantSubmit: !ready || s.submitting,
+      submitBg: ready && !s.submitting ? '#141210' : '#c3bbaa',
+      submitFg: '#f2efe8',
+      submitLabel: s.submitting ? '送信中…' : 'この内容で予約する',
+      hasError: !!s.error,
+      errorMsg: s.error,
+      notSent: !s.sent,
+      sent: s.sent,
+      submit: () => {
+        const gasUrl = this.props.gasUrl ?? '';
+        if (!gasUrl) { this.setState({ sent: true }); return; }
+        if (this.state.submitting) return;
+        this.setState({ submitting: true, error: '' });
+        const goThanks = () => {
+          try { localStorage.setItem('wc-booking', JSON.stringify({ date: s.date, time: s.time, name: s.name })); } catch (e) {}
+          window.location.href = './thanks.html';
+        };
+        fetch(gasUrl, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ date: s.date, time: s.time, name: s.name, tel: s.tel, note: s.note }) })
+          .then(r => r.json())
+          .then(d => {
+            if (d && d.ok === false && d.error === 'slot_taken') {
+              this.setState({ submitting: false, error: '申し訳ありません、その時間は埋まってしまいました。別の時間をお選びください。', time: '' });
+              this._loadBusy();
+              return;
+            }
+            goThanks();
+          })
+          .catch(goThanks);
+      },
+      lineOfficial: lineStyle === '公式グリーン',
+      lineMono: lineStyle !== '公式グリーン',
+      flow: [
+        { no: '01', title: '来店予約', body: 'WEBフォームまたはLINEから、ご希望の日時をお知らせください。' },
+        { no: '02', title: 'カウンセリング・ドレス見学', body: '所要約60分。プランのご説明とドレスのご試着ができます。' },
+        { no: '03', title: '撮影当日', body: 'ヘアメイク・お支度の後、貸切スタジオで約2時間の撮影。' },
+        { no: '04', title: 'データ納品', body: '約3週間で全データをオンライン納品。アルバムは約6週間です。' },
+      ],
+      faqs: faqsData.map(([q, a], i) => ({
+        q, a,
+        open: this.state.open === i,
+        mark: this.state.open === i ? '−' : '+',
+        toggle: () => this.setState(s2 => ({ open: s2.open === i ? -1 : i })),
+      })),
+    };
+  }
+}
+</script>
+</body>
+</html>
