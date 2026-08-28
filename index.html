@@ -528,10 +528,14 @@ class Component extends DCLogic {
       c.addEventListener('pointerleave', () => { paused = false; });
       c.addEventListener('touchstart', () => { paused = true; }, { passive: true });
       c.addEventListener('touchend', () => { setTimeout(() => { paused = false; }, 2000); }, { passive: true });
+      let pos = c.scrollLeft;
       const step = () => {
-        if (!paused) {
-          c.scrollLeft += 0.5;
-          if (c.scrollLeft >= c.scrollWidth - c.clientWidth - 1) c.scrollLeft = 0;
+        if (paused) {
+          pos = c.scrollLeft;
+        } else {
+          pos += 0.5;
+          if (pos >= c.scrollWidth - c.clientWidth - 1) pos = 0;
+          c.scrollLeft = pos;
         }
         this._raf = requestAnimationFrame(step);
       };
