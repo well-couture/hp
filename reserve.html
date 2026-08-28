@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html>
 <head>
+<title>来店予約 | Well couture STUDIO</title>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-S3W7C1NC2H"></script>
 <script>
@@ -10,10 +13,6 @@
   gtag('js', new Date());
   gtag('config', 'G-S3W7C1NC2H');
 </script>
-<title>来店予約 | Well couture STUDIO</title>
-<meta name="description" content="Well couture STUDIOの来店予約ページ。カレンダーからご希望の日時を選んで、そのままご予約いただけます。">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
 </head>
 <body>
 <x-dc>
@@ -60,7 +59,6 @@ a:hover{color:#8a7f6f}
             <button onClick="{{ d.pick }}" disabled="{{ d.disabled }}" style="border:none;height:36px;cursor:pointer;font-family:'Shippori Mincho',serif;font-size:12px;background:{{ d.bg }};color:{{ d.fg }}">{{ d.label }}</button>
           </sc-for>
         </div>
-        <span style="font-size:9px;letter-spacing:0.06em;color:#8a7f6f">※ 火・水曜は定休日のため選択できません</span>
       </div>
       <div style="display:flex;flex-direction:column;gap:10px">
         <span style="font-size:10px;letter-spacing:0.24em;color:#8a7f6f">2. ご希望時間</span>
@@ -102,11 +100,7 @@ a:hover{color:#8a7f6f}
   <footer style="padding:44px 26px 36px;background:#141210;display:flex;flex-direction:column;gap:18px;align-items:center;text-align:center">
     <img src="./assets/logo-white.webp" alt="Well couture STUDIO" style="display:block;width:56%;max-width:220px;height:auto">
     <a href="./index.html" style="font-size:9px;letter-spacing:0.2em;color:#a99f8e">‹ スタジオトップへ戻る</a>
-    <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center">
-      <a href="./terms.html" style="font-size:8.5px;letter-spacing:0.1em;color:#8a7f6f">利用規約・キャンセルポリシー</a>
-      <a href="./tokushoho.html" style="font-size:8.5px;letter-spacing:0.1em;color:#8a7f6f">特定商取引法に基づく表記</a>
-      <a href="./privacy.html" style="font-size:8.5px;letter-spacing:0.1em;color:#8a7f6f">プライバシーポリシー</a>
-    </div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center"><a href="./terms.html" style="font-size:8.5px;letter-spacing:0.1em;color:#8a7f6f">利用規約・キャンセルポリシー</a><a href="./tokushoho.html" style="font-size:8.5px;letter-spacing:0.1em;color:#8a7f6f">特定商取引法に基づく表記</a><a href="./privacy.html" style="font-size:8.5px;letter-spacing:0.1em;color:#8a7f6f">プライバシーポリシー</a></div>
     <span style="font-size:8px;letter-spacing:0.14em;color:#6b6254">運営会社: 株式会社The Well</span>
     <span style="font-size:8px;letter-spacing:0.14em;color:#6b6254">© 2026 Well couture STUDIO</span>
   </footer>
@@ -133,7 +127,7 @@ class Component extends DCLogic {
     for (let i = 0; i < base.getDay(); i++) days.push({ label: '', disabled: true, bg: 'transparent', fg: 'transparent', pick: null });
     for (let n = 1; n <= dim; n++) {
       const d = new Date(base.getFullYear(), base.getMonth(), n);
-      const closed = d.getDay() === 2 || d.getDay() === 3;
+      const closed = false;
       const past = d <= today;
       const iso = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(n).padStart(2, '0');
       const full = (s.busy[iso] || []).length >= 8;
