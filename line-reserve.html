@@ -153,7 +153,21 @@ class Component extends DCLogic {
     return bk;
   }
   componentDidMount() {
+    if (this._getBk()) { this._showLinkingOverlay(); }
     this._loadBusy(); this._initLiff();
+  }
+  // 後追い紐付け中は予約フォームを隠して待機画面を表示(迷い防止)
+  _showLinkingOverlay() {
+    try {
+      const ov = document.createElement('div');
+      ov.id = 'wc-linking';
+      ov.style.cssText = "position:fixed;inset:0;z-index:9999;background:#141210;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;font-family:'Shippori Mincho',serif;text-align:center;padding:24px";
+      ov.innerHTML = '<div style="color:#d8cfbc;font-size:12px;letter-spacing:0.24em">WELL COUTURE STUDIO</div>'
+        + '<div style="color:#f2efe8;font-size:15px;letter-spacing:0.1em;line-height:2">ご予約とLINEをおつなぎしています</div>'
+        + '<div style="color:#a99f8e;font-size:11px;letter-spacing:0.08em">そのままお待ちください…</div>';
+      document.body.appendChild(ov);
+      setTimeout(() => { const e = document.getElementById('wc-linking'); if (e) e.remove(); }, 18000);
+    } catch (e) {}
   }
   renderVals() {
     const s = this.state;
