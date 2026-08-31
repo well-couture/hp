@@ -79,6 +79,10 @@ a:hover{color:#8a7f6f}
           <input value="{{ tel }}" onChange="{{ setTel }}" type="tel" placeholder="090-1234-5678" style="border:1px solid rgba(61,55,47,0.25);background:#ffffff;padding:11px 12px;font-family:'Shippori Mincho',serif;font-size:13px;color:#2e2922;outline:none">
         </label>
         <label style="display:flex;flex-direction:column;gap:5px">
+          <span style="font-size:11px;letter-spacing:0.1em;color:#4a4438">メールアドレス <span style="font-size:9px;color:#a3543f">必須</span></span>
+          <input value="{{ email }}" onChange="{{ setEmail }}" type="email" placeholder="example@mail.com" style="border:1px solid rgba(61,55,47,0.25);background:#ffffff;padding:11px 12px;font-family:'Shippori Mincho',serif;font-size:13px;color:#2e2922;outline:none">
+        </label>
+        <label style="display:flex;flex-direction:column;gap:5px">
           <span style="font-size:11px;letter-spacing:0.1em;color:#4a4438">ご質問・ご要望(任意)</span>
           <textarea value="{{ note }}" onChange="{{ setNote }}" rows="3" placeholder="撮影のみ希望、ドレス見学のみ など" style="border:1px solid rgba(61,55,47,0.25);background:#ffffff;padding:11px 12px;font-family:'Shippori Mincho',serif;font-size:13px;color:#2e2922;outline:none;resize:vertical"></textarea>
         </label>
@@ -108,7 +112,7 @@ a:hover{color:#8a7f6f}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:844},&quot;gasUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://script.google.com/macros/s/AKfycbwZqRN8_KqI6USbxvktASGh4l6GcMfMS-OVw6H-Q9JxTPsvyWkRFVNeNx2XxSm-s3n8/exec&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;予約連携(GAS URL)&quot;}}">
 class Component extends DCLogic {
-  state = { monthOff: 0, date: null, time: '', name: '', tel: '', note: '', busy: {}, submitting: false, error: '' };
+  state = { monthOff: 0, date: null, time: '', name: '', tel: '', email: '', note: '', busy: {}, submitting: false, error: '' };
   _loadBusy() {
     const gasUrl = this.props.gasUrl ?? '';
     if (!gasUrl) return;
@@ -141,7 +145,8 @@ class Component extends DCLogic {
       });
     }
     const dateLabel = s.date ? (() => { const d = new Date(s.date + 'T00:00:00'); return (d.getMonth() + 1) + '月' + d.getDate() + '日(' + '日月火水木金土'[d.getDay()] + ')'; })() : '';
-    const ready = s.date && s.time && s.name.trim() && s.tel.trim();
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s.email.trim());
+    const ready = s.date && s.time && s.name.trim() && s.tel.trim() && emailOk;
     return {
       monthLabel: base.getFullYear() + '年 ' + (base.getMonth() + 1) + '月',
       prevMonth: () => this.setState(st => ({ monthOff: Math.max(0, st.monthOff - 1) })),
@@ -157,11 +162,12 @@ class Component extends DCLogic {
           pick: taken ? null : () => this.setState({ time: t }),
         };
       }),
-      name: s.name, tel: s.tel, note: s.note,
+      name: s.name, tel: s.tel, email: s.email, note: s.note,
       setName: e => this.setState({ name: e.target.value }),
       setTel: e => this.setState({ tel: e.target.value }),
+      setEmail: e => this.setState({ email: e.target.value }),
       setNote: e => this.setState({ note: e.target.value }),
-      summary: ready ? 'ご希望日時:' + dateLabel + ' ' + s.time : '日時・お名前・お電話番号をご入力ください',
+      summary: ready ? 'ご希望日時:' + dateLabel + ' ' + s.time : '日時・お名前・お電話番号・メールアドレスをご入力ください',
       cantSubmit: !ready || s.submitting,
       submitBg: ready && !s.submitting ? '#141210' : '#c3bbaa',
       submitLabel: s.submitting ? '送信中…' : 'この内容で予約する',
@@ -176,7 +182,7 @@ class Component extends DCLogic {
         };
         if (!gasUrl) { goThanks(); return; }
         this.setState({ submitting: true, error: '' });
-        fetch(gasUrl, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ date: s.date, time: s.time, name: s.name, tel: s.tel, note: s.note }) })
+        fetch(gasUrl, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ date: s.date, time: s.time, name: s.name, tel: s.tel, email: s.email.trim(), note: s.note }) })
           .then(r => r.json())
           .then(d => {
             if (d && d.ok === false && d.error === 'slot_taken') {
