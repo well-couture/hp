@@ -455,6 +455,10 @@ a:hover{color:#8a7f6f}
           <input value="{{ tel }}" onChange="{{ setTel }}" type="tel" placeholder="090-1234-5678" style="border:1px solid rgba(61,55,47,0.25);background:#ffffff;padding:11px 12px;font-family:'Shippori Mincho',serif;font-size:13px;color:#2e2922;outline:none">
         </label>
         <label style="display:flex;flex-direction:column;gap:5px">
+          <span style="font-size:11px;letter-spacing:0.1em;color:#4a4438">メールアドレス <span style="font-size:9px;color:#a3543f">必須</span></span>
+          <input value="{{ email }}" onChange="{{ setEmail }}" type="email" placeholder="example@mail.com" style="border:1px solid rgba(61,55,47,0.25);background:#ffffff;padding:11px 12px;font-family:'Shippori Mincho',serif;font-size:13px;color:#2e2922;outline:none">
+        </label>
+        <label style="display:flex;flex-direction:column;gap:5px">
           <span style="font-size:11px;letter-spacing:0.1em;color:#4a4438">ご質問・ご要望(任意)</span>
           <textarea value="{{ note }}" onChange="{{ setNote }}" rows="3" placeholder="撮影のみ希望、ドレス見学のみ など" style="border:1px solid rgba(61,55,47,0.25);background:#ffffff;padding:11px 12px;font-family:'Shippori Mincho',serif;font-size:13px;color:#2e2922;outline:none;resize:vertical"></textarea>
         </label>
@@ -504,7 +508,7 @@ a:hover{color:#8a7f6f}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:844},&quot;showCampaign&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;キャンペーン&quot;},&quot;lineStyle&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;公式グリーン&quot;,&quot;モノトーン&quot;],&quot;default&quot;:&quot;公式グリーン&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;LINEボタン&quot;},&quot;gasUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://script.google.com/macros/s/AKfycbwZqRN8_KqI6USbxvktASGh4l6GcMfMS-OVw6H-Q9JxTPsvyWkRFVNeNx2XxSm-s3n8/exec&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;予約連携(GAS URL)&quot;}}">
 class Component extends DCLogic {
-  state = { open: 0, monthOff: 0, date: null, time: '', name: '', tel: '', note: '', sent: false, busy: {}, submitting: false, error: '' };
+  state = { open: 0, monthOff: 0, date: null, time: '', name: '', tel: '', email: '', note: '', sent: false, busy: {}, submitting: false, error: '' };
   _loadBusy() {
     const gasUrl = this.props.gasUrl ?? '';
     if (!gasUrl) return;
@@ -583,7 +587,8 @@ class Component extends DCLogic {
       });
     }
     const dateLabel = s.date ? (() => { const d = new Date(s.date + 'T00:00:00'); return (d.getMonth() + 1) + '月' + d.getDate() + '日(' + '日月火水木金土'[d.getDay()] + ')'; })() : '';
-    const ready = s.date && s.time && s.name.trim() && s.tel.trim();
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s.email.trim());
+    const ready = s.date && s.time && s.name.trim() && s.tel.trim() && emailOk;
     return {
       showCampaign: this.props.showCampaign ?? true,
       monthLabel: base.getFullYear() + '年 ' + (base.getMonth() + 1) + '月',
@@ -600,11 +605,12 @@ class Component extends DCLogic {
           pick: taken ? null : () => this.setState({ time: t, sent: false }),
         };
       }),
-      name: s.name, tel: s.tel, note: s.note,
+      name: s.name, tel: s.tel, email: s.email, note: s.note,
       setName: e => this.setState({ name: e.target.value }),
       setTel: e => this.setState({ tel: e.target.value }),
+      setEmail: e => this.setState({ email: e.target.value }),
       setNote: e => this.setState({ note: e.target.value }),
-      summary: ready || s.sent ? 'ご希望日時:' + dateLabel + ' ' + s.time : '日時・お名前・お電話番号をご入力ください',
+      summary: ready || s.sent ? 'ご希望日時:' + dateLabel + ' ' + s.time : '日時・お名前・お電話番号・メールアドレスをご入力ください',
       cantSubmit: !ready || s.submitting,
       submitBg: ready && !s.submitting ? '#141210' : '#c3bbaa',
       submitFg: '#f2efe8',
@@ -622,7 +628,7 @@ class Component extends DCLogic {
           try { localStorage.setItem('wc-booking', JSON.stringify({ date: s.date, time: s.time, name: s.name })); } catch (e) {}
           window.location.href = './thanks.html';
         };
-        fetch(gasUrl, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ date: s.date, time: s.time, name: s.name, tel: s.tel, note: s.note }) })
+        fetch(gasUrl, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ date: s.date, time: s.time, name: s.name, tel: s.tel, email: s.email.trim(), note: s.note }) })
           .then(r => r.json())
           .then(d => {
             if (d && d.ok === false && d.error === 'slot_taken') {
