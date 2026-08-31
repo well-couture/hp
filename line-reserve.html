@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>来店予約 | Well couture STUDIO</title>
+<meta name="robots" content="noindex">
 <script src="./support.js"></script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-S3W7C1NC2H"></script>
@@ -19,6 +20,7 @@
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 <style>
 @font-face{font-family:'Hunter';src:url('./assets/Hunter.otf') format('opentype');font-display:swap}
 @font-face{font-family:'Marigold';src:url('./assets/MARIGOLD.otf') format('opentype');font-display:swap}
@@ -27,19 +29,18 @@ a{color:#3d372f;text-decoration:none}
 a:hover{color:#8a7f6f}
 </style>
 </helmet>
-<div style="max-width:430px;margin:0 auto;background:#efece6;color:#3d372f;position:relative;min-height:100vh" data-screen-label="来店予約ページ">
+<div style="max-width:430px;margin:0 auto;background:#efece6;color:#3d372f;position:relative;min-height:100vh" data-screen-label="LINE予約ページ">
 
-  <header style="position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:rgba(20,18,16,0.86);backdrop-filter:blur(10px)">
-    <a href="./index.html" style="display:flex;align-items:center;gap:10px">
-      <span style="font-family:'Hunter',serif;font-size:16px;color:#e9e4d9">‹</span>
-      <img src="./assets/logo-white.webp" alt="Well couture STUDIO" style="display:block;height:22px;width:auto">
-    </a>
+  <header style="display:flex;justify-content:center;padding:16px 18px;background:rgba(20,18,16,1)">
+    <img src="./assets/logo-white.webp" alt="Well couture STUDIO" style="display:block;height:22px;width:auto">
   </header>
 
-  <section style="padding:44px 26px 28px;background:#141210;display:flex;flex-direction:column;gap:10px;text-align:center;align-items:center">
+  <section style="padding:38px 26px 26px;background:#141210;display:flex;flex-direction:column;gap:10px;text-align:center;align-items:center">
     <span style="font-family:'Marigold',cursive;font-size:28px;color:#d8cfbc;line-height:1.2">Reservation</span>
     <span style="font-size:13px;letter-spacing:0.22em;color:#f2efe8">来店予約</span>
-    <p style="margin:0;font-size:11px;line-height:2;letter-spacing:0.05em;color:#a99f8e">ドレス見学のみでも歓迎です。所要約60分、<br>無理なご案内は一切いたしません。</p>
+    <sc-if value="{{ hello }}" hint-placeholder-val="{{ false }}">
+      <p style="margin:0;font-size:11px;line-height:2;letter-spacing:0.05em;color:#a99f8e">{{ helloText }}</p>
+    </sc-if>
   </section>
 
   <section style="padding:36px 22px 64px;display:flex;flex-direction:column;gap:22px">
@@ -89,26 +90,22 @@ a:hover{color:#8a7f6f}
         <sc-if value="{{ hasError }}" hint-placeholder-val="{{ false }}">
           <span style="font-size:10.5px;letter-spacing:0.05em;color:#a3543f;text-align:center">{{ errorMsg }}</span>
         </sc-if>
+        <span style="font-size:10px;letter-spacing:0.06em;line-height:1.9;color:#8a7f6f;text-align:center">ご予約が確定すると、このLINEトークに<br>予約内容のメッセージが届きます。</span>
       </div>
-    </div>
-    <div style="display:flex;flex-direction:column;gap:10px;text-align:center">
-      <span style="font-size:10px;letter-spacing:0.1em;color:#8a7f6f">LINEでのご相談・ご予約も承ります</span>
-      <a href="https://line.me/ti/p/%40132onmcg" target="_blank" rel="noopener" style="display:block;font-size:12px;letter-spacing:0.2em;color:#ffffff;background:#06C755;padding:15px">LINEで相談・予約する</a>
     </div>
   </section>
 
-  <footer style="padding:44px 26px 36px;background:#141210;display:flex;flex-direction:column;gap:18px;align-items:center;text-align:center">
-    <img src="./assets/logo-white.webp" alt="Well couture STUDIO" style="display:block;width:56%;max-width:220px;height:auto">
-    <a href="./index.html" style="font-size:9px;letter-spacing:0.2em;color:#a99f8e">‹ スタジオトップへ戻る</a>
+  <footer style="padding:36px 26px 32px;background:#141210;display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center">
+    <img src="./assets/logo-white.webp" alt="Well couture STUDIO" style="display:block;width:48%;max-width:190px;height:auto">
     <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center"><a href="./terms.html" style="font-size:8.5px;letter-spacing:0.1em;color:#8a7f6f">利用規約・キャンセルポリシー</a><a href="./tokushoho.html" style="font-size:8.5px;letter-spacing:0.1em;color:#8a7f6f">特定商取引法に基づく表記</a><a href="./privacy.html" style="font-size:8.5px;letter-spacing:0.1em;color:#8a7f6f">プライバシーポリシー</a></div>
     <span style="font-size:8px;letter-spacing:0.14em;color:#6b6254">運営会社: 株式会社The Well</span>
     <span style="font-size:8px;letter-spacing:0.14em;color:#6b6254">© 2026 Well couture STUDIO</span>
   </footer>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:844},&quot;gasUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://script.google.com/macros/s/AKfycbwZqRN8_KqI6USbxvktASGh4l6GcMfMS-OVw6H-Q9JxTPsvyWkRFVNeNx2XxSm-s3n8/exec&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;予約連携(GAS URL)&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:844},&quot;gasUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://script.google.com/macros/s/AKfycbwZqRN8_KqI6USbxvktASGh4l6GcMfMS-OVw6H-Q9JxTPsvyWkRFVNeNx2XxSm-s3n8/exec&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;連携&quot;},&quot;liffId&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;2011343654-bHNUmXe0&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;連携&quot;}}">
 class Component extends DCLogic {
-  state = { monthOff: 0, date: null, time: '', name: '', tel: '', note: '', busy: {}, submitting: false, error: '' };
+  state = { monthOff: 0, date: null, time: '', name: '', tel: '', note: '', busy: {}, submitting: false, error: '', userId: '', displayName: '', liffReady: false };
   _loadBusy() {
     const gasUrl = this.props.gasUrl ?? '';
     if (!gasUrl) return;
@@ -117,7 +114,33 @@ class Component extends DCLogic {
       .then(d => this.setState({ busy: d.busy || {} }))
       .catch(() => {});
   }
-  componentDidMount() { this._loadBusy(); }
+  _initLiff() {
+    const liffId = this.props.liffId ?? '';
+    if (!liffId || typeof liff === 'undefined') return;
+    liff.init({ liffId })
+      .then(() => {
+        this.setState({ liffReady: true });
+        if (!liff.isLoggedIn()) { if (liff.isInClient()) return null; liff.login(); return null; }
+        return liff.getProfile();
+      })
+      .then(p => {
+        if (p) this.setState(s => ({ userId: p.userId, displayName: p.displayName, name: s.name || p.displayName }));
+      })
+      .catch(() => {});
+  }
+  _getBk() {
+    const q = new URLSearchParams(window.location.search);
+    let bk = q.get('bk');
+    if (!bk && q.get('liff.state')) {
+      try { bk = new URLSearchParams(q.get('liff.state').replace(/^\?/, '')).get('bk'); } catch (e) {}
+    }
+    return bk;
+  }
+  componentDidMount() {
+    const bk = this._getBk();
+    if (bk) { window.location.replace('./line-link.html?bk=' + encodeURIComponent(bk)); return; }
+    this._loadBusy(); this._initLiff();
+  }
   renderVals() {
     const s = this.state;
     const today = new Date(); today.setHours(0, 0, 0, 0);
@@ -127,11 +150,10 @@ class Component extends DCLogic {
     for (let i = 0; i < base.getDay(); i++) days.push({ label: '', disabled: true, bg: 'transparent', fg: 'transparent', pick: null });
     for (let n = 1; n <= dim; n++) {
       const d = new Date(base.getFullYear(), base.getMonth(), n);
-      const closed = false;
       const past = d <= today;
       const iso = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(n).padStart(2, '0');
       const full = (s.busy[iso] || []).length >= 8;
-      const disabled = closed || past || full;
+      const disabled = past || full;
       const sel = s.date === iso;
       days.push({
         label: String(n), disabled,
@@ -143,6 +165,8 @@ class Component extends DCLogic {
     const dateLabel = s.date ? (() => { const d = new Date(s.date + 'T00:00:00'); return (d.getMonth() + 1) + '月' + d.getDate() + '日(' + '日月火水木金土'[d.getDay()] + ')'; })() : '';
     const ready = s.date && s.time && s.name.trim() && s.tel.trim();
     return {
+      hello: !!s.displayName,
+      helloText: s.displayName + ' さま、ご希望の日時をお選びください。',
       monthLabel: base.getFullYear() + '年 ' + (base.getMonth() + 1) + '月',
       prevMonth: () => this.setState(st => ({ monthOff: Math.max(0, st.monthOff - 1) })),
       nextMonth: () => this.setState(st => ({ monthOff: Math.min(5, st.monthOff + 1) })),
@@ -170,13 +194,13 @@ class Component extends DCLogic {
       submit: () => {
         const gasUrl = this.props.gasUrl ?? '';
         if (this.state.submitting) return;
-        const goThanks = (bk) => {
-          try { localStorage.setItem('wc-booking', JSON.stringify({ date: s.date, time: s.time, name: s.name, bk: bk || '' })); } catch (e) {}
-          window.location.href = './thanks.html';
+        const goThanks = () => {
+          try { localStorage.setItem('wc-booking', JSON.stringify({ date: s.date, time: s.time, name: s.name })); } catch (e) {}
+          window.location.href = './line-thanks.html';
         };
         if (!gasUrl) { goThanks(); return; }
         this.setState({ submitting: true, error: '' });
-        fetch(gasUrl, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ date: s.date, time: s.time, name: s.name, tel: s.tel, note: s.note }) })
+        fetch(gasUrl, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ date: s.date, time: s.time, name: s.name, tel: s.tel, note: s.note, lineUserId: s.userId, source: 'line' }) })
           .then(r => r.json())
           .then(d => {
             if (d && d.ok === false && d.error === 'slot_taken') {
@@ -184,9 +208,9 @@ class Component extends DCLogic {
               this._loadBusy();
               return;
             }
-            goThanks(d && d.bookingId);
+            goThanks();
           })
-          .catch(() => goThanks());
+          .catch(goThanks);
       },
     };
   }

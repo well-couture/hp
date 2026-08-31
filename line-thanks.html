@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ご予約ありがとうございます | Well couture STUDIO</title>
+<meta name="robots" content="noindex">
 <script src="./support.js"></script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-S3W7C1NC2H"></script>
@@ -19,16 +20,17 @@
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 <style>
 @font-face{font-family:'Hunter';src:url('./assets/Hunter.otf') format('opentype');font-display:swap}
 @font-face{font-family:'Marigold';src:url('./assets/MARIGOLD.otf') format('opentype');font-display:swap}
 body{margin:0;background:#141210;font-family:'Shippori Mincho',serif;-webkit-font-smoothing:antialiased}
-a{color:#3d372f;text-decoration:none}
-a:hover{color:#8a7f6f}
+a{color:#e9e4d9;text-decoration:none}
+a:hover{color:#b3a78f}
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 </style>
 </helmet>
-<div style="max-width:430px;margin:0 auto;background:#141210;color:#f2efe8;position:relative;min-height:100vh;display:flex;flex-direction:column" data-screen-label="予約完了サンクスページ">
+<div style="max-width:430px;margin:0 auto;background:#141210;color:#f2efe8;position:relative;min-height:100vh;display:flex;flex-direction:column" data-screen-label="LINE予約完了ページ">
 
   <header style="display:flex;justify-content:center;padding:26px 18px 0">
     <img src="./assets/logo-white.webp" alt="Well couture STUDIO" style="display:block;height:24px;width:auto">
@@ -53,23 +55,35 @@ a:hover{color:#8a7f6f}
     </div>
 
     <p style="margin:0;font-size:12px;line-height:2.2;letter-spacing:0.08em;color:#c9c1b1">当日お会いできることを、<br>スタッフ一同楽しみにしております。</p>
-
-    <div style="display:flex;flex-direction:column;gap:12px">
-      <p style="margin:0;font-size:11px;line-height:2;letter-spacing:0.06em;color:#a99f8e">ご予約の確認・当日のご連絡はLINEで行います。<br>下のボタンから追加をお願いいたします。</p>
-      <a href="{{ lineHref }}" target="_blank" rel="noopener" style="display:block;font-size:12px;letter-spacing:0.2em;color:#ffffff;background:#06C755;padding:16px">LINEを追加して予約内容を受け取る</a>
-    </div>
+    <p style="margin:0;font-size:11px;line-height:2;letter-spacing:0.06em;color:#a99f8e">{{ countdownText }}</p>
   </main>
 
   <footer style="display:flex;flex-direction:column;gap:16px;align-items:center;padding:0 30px 44px;text-align:center">
-    <a href="./index.html" style="display:block;width:100%;box-sizing:border-box;font-size:11px;letter-spacing:0.22em;color:#e9e4d9;border:1px solid rgba(233,228,217,0.35);padding:14px">HPへ戻る</a>
+    <a href="./index.html" style="display:block;width:100%;box-sizing:border-box;font-size:11px;letter-spacing:0.22em;color:#e9e4d9;border:1px solid rgba(233,228,217,0.35);padding:14px">HPを見る</a>
     <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center"><a href="./terms.html" style="font-size:8.5px;letter-spacing:0.1em;color:#8a7f6f">利用規約・キャンセルポリシー</a><a href="./tokushoho.html" style="font-size:8.5px;letter-spacing:0.1em;color:#8a7f6f">特定商取引法に基づく表記</a><a href="./privacy.html" style="font-size:8.5px;letter-spacing:0.1em;color:#8a7f6f">プライバシーポリシー</a></div>
     <span style="font-size:8px;letter-spacing:0.14em;color:#6b6254">運営会社: 株式会社The Well</span>
     <span style="font-size:8px;letter-spacing:0.14em;color:#6b6254">© 2026 Well couture STUDIO</span>
   </footer>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:844}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:844},&quot;liffId&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;2011343654-bHNUmXe0&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;連携&quot;}}">
 class Component extends DCLogic {
+  state = { count: 3 };
+  componentDidMount() {
+    const liffId = this.props.liffId ?? '';
+    if (liffId && typeof liff !== 'undefined') { liff.init({ liffId }).catch(() => {}); }
+    this._timer = setInterval(() => {
+      const c = this.state.count - 1;
+      if (c <= 0) {
+        clearInterval(this._timer);
+        this.setState({ count: 0 });
+        if (typeof liff !== 'undefined' && liff.isInClient && liff.isInClient()) { liff.closeWindow(); }
+      } else {
+        this.setState({ count: c });
+      }
+    }, 1000);
+  }
+  componentWillUnmount() { if (this._timer) clearInterval(this._timer); }
   renderVals() {
     let label = 'ご予約内容を確認中';
     try {
@@ -79,12 +93,11 @@ class Component extends DCLogic {
         label = (d.getMonth() + 1) + '月' + d.getDate() + '日(' + '日月火水木金土'[d.getDay()] + ') ' + b.time;
       }
     } catch (e) {}
-    let lineHref = 'https://line.me/ti/p/%40132onmcg';
-    try {
-      const b2 = JSON.parse(localStorage.getItem('wc-booking') || 'null');
-      if (b2 && b2.bk) lineHref = 'https://liff.line.me/2011343654-bHNUmXe0/?bk=' + encodeURIComponent(b2.bk);
-    } catch (e) {}
-    return { bookingLabel: label, lineHref: lineHref };
+    const c = this.state.count;
+    return {
+      bookingLabel: label,
+      countdownText: c > 0 ? c + '秒後にLINEのトーク画面に戻ります。予約内容のメッセージをお送りしました。' : 'LINEのトーク画面にお戻りください。予約内容のメッセージをお送りしました。',
+    };
   }
 }
 </script>

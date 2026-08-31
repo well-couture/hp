@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LINE連携 | Well couture STUDIO</title>
+<meta name="robots" content="noindex">
+<script src="./support.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S3W7C1NC2H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-S3W7C1NC2H');
+</script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+<style>
+@font-face{font-family:'Hunter';src:url('./assets/Hunter.otf') format('opentype');font-display:swap}
+@font-face{font-family:'Marigold';src:url('./assets/MARIGOLD.otf') format('opentype');font-display:swap}
+body{margin:0;background:#141210;font-family:'Shippori Mincho',serif;-webkit-font-smoothing:antialiased}
+a{color:#e9e4d9;text-decoration:none}
+a:hover{color:#b3a78f}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</helmet>
+<div style="max-width:430px;margin:0 auto;background:#141210;color:#f2efe8;position:relative;min-height:100vh;display:flex;flex-direction:column" data-screen-label="LINE連携ページ">
+
+  <header style="display:flex;justify-content:center;padding:26px 18px 0">
+    <img src="./assets/logo-white.webp" alt="Well couture STUDIO" style="display:block;height:24px;width:auto">
+  </header>
+
+  <main style="flex:1;display:flex;flex-direction:column;gap:26px;padding:64px 30px;text-align:center;justify-content:center;animation:fadeUp 1s ease both">
+    <div style="display:flex;flex-direction:column;gap:10px;align-items:center">
+      <span style="font-family:'Marigold',cursive;font-size:32px;color:#d8cfbc;line-height:1.2">{{ titleEn }}</span>
+      <span style="font-size:13px;letter-spacing:0.2em;color:#f2efe8">{{ titleJa }}</span>
+      <span style="width:28px;height:1px;background:rgba(233,228,217,0.3);margin-top:6px"></span>
+    </div>
+    <p style="margin:0;font-size:12px;line-height:2.2;letter-spacing:0.07em;color:#c9c1b1">{{ bodyText }}</p>
+    <sc-if value="{{ isError }}" hint-placeholder-val="{{ false }}">
+      <a href="https://line.me/ti/p/%40132onmcg" target="_blank" rel="noopener" style="display:block;font-size:12px;letter-spacing:0.2em;color:#ffffff;background:#06C755;padding:16px">LINEで問い合わせる</a>
+    </sc-if>
+  </main>
+
+  <footer style="display:flex;flex-direction:column;gap:16px;align-items:center;padding:0 30px 44px;text-align:center">
+    <a href="./index.html" style="display:block;width:100%;box-sizing:border-box;font-size:11px;letter-spacing:0.22em;color:#e9e4d9;border:1px solid rgba(233,228,217,0.35);padding:14px">HPを見る</a>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center"><a href="./terms.html" style="font-size:8.5px;letter-spacing:0.1em;color:#8a7f6f">利用規約・キャンセルポリシー</a><a href="./tokushoho.html" style="font-size:8.5px;letter-spacing:0.1em;color:#8a7f6f">特定商取引法に基づく表記</a><a href="./privacy.html" style="font-size:8.5px;letter-spacing:0.1em;color:#8a7f6f">プライバシーポリシー</a></div>
+    <span style="font-size:8px;letter-spacing:0.14em;color:#6b6254">運営会社: 株式会社The Well</span>
+    <span style="font-size:8px;letter-spacing:0.14em;color:#6b6254">© 2026 Well couture STUDIO</span>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:844},&quot;gasUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://script.google.com/macros/s/AKfycbwZqRN8_KqI6USbxvktASGh4l6GcMfMS-OVw6H-Q9JxTPsvyWkRFVNeNx2XxSm-s3n8/exec&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;連携&quot;},&quot;liffId&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;2011343654-bHNUmXe0&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;連携&quot;}}">
+class Component extends DCLogic {
+  state = { phase: 'linking', count: 3 };
+  _getBk() {
+    const q = new URLSearchParams(window.location.search);
+    let bk = q.get('bk');
+    if (!bk && q.get('liff.state')) {
+      try { bk = new URLSearchParams(q.get('liff.state').replace(/^\?/, '')).get('bk'); } catch (e) {}
+    }
+    return bk;
+  }
+  _startClose() {
+    this._timer = setInterval(() => {
+      const c = this.state.count - 1;
+      if (c <= 0) {
+        clearInterval(this._timer);
+        this.setState({ count: 0 });
+        if (typeof liff !== 'undefined' && liff.isInClient && liff.isInClient()) { liff.closeWindow(); }
+      } else this.setState({ count: c });
+    }, 1000);
+  }
+  componentDidMount() {
+    const bk = this._getBk();
+    const gasUrl = this.props.gasUrl ?? '';
+    const liffId = this.props.liffId ?? '';
+    if (!bk || !gasUrl || !liffId || typeof liff === 'undefined') { this.setState({ phase: 'error' }); return; }
+    liff.init({ liffId })
+      .then(() => {
+        if (!liff.isLoggedIn() && !liff.isInClient()) { liff.login(); return null; }
+        return liff.getProfile();
+      })
+      .then(p => {
+        if (!p) return null;
+        return fetch(gasUrl, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ action: 'link', bookingId: bk, lineUserId: p.userId }) }).then(r => r.json());
+      })
+      .then(d => {
+        if (!d) return;
+        if (d.ok) { this.setState({ phase: 'done' }); this._startClose(); }
+        else this.setState({ phase: 'error' });
+      })
+      .catch(() => this.setState({ phase: 'error' }));
+  }
+  componentWillUnmount() { if (this._timer) clearInterval(this._timer); }
+  renderVals() {
+    const ph = this.state.phase, c = this.state.count;
+    return {
+      titleEn: ph === 'done' ? 'Connected' : ph === 'error' ? 'Sorry' : 'One moment',
+      titleJa: ph === 'done' ? '連携が完了しました' : ph === 'error' ? '連携できませんでした' : 'ご予約と連携しています',
+      bodyText: ph === 'done'
+        ? (c > 0 ? 'トークに予約内容をお送りしました。' + c + '秒後にトーク画面へ戻ります。' : 'トークに予約内容をお送りしました。トーク画面をご確認ください。')
+        : ph === 'error'
+        ? '恐れ入りますが、LINEのトークから「予約の連携」とメッセージをお送りください。スタッフが確認いたします。'
+        : 'そのままお待ちください。',
+      isError: ph === 'error',
+    };
+  }
+}
+</script>
+</body>
+</html>
