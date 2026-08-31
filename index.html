@@ -624,8 +624,8 @@ class Component extends DCLogic {
         if (!gasUrl) { this.setState({ sent: true }); return; }
         if (this.state.submitting) return;
         this.setState({ submitting: true, error: '' });
-        const goThanks = () => {
-          try { localStorage.setItem('wc-booking', JSON.stringify({ date: s.date, time: s.time, name: s.name })); } catch (e) {}
+        const goThanks = (bk) => {
+          try { localStorage.setItem('wc-booking', JSON.stringify({ date: s.date, time: s.time, name: s.name, bk: bk || '' })); } catch (e) {}
           window.location.href = './thanks.html';
         };
         fetch(gasUrl, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ date: s.date, time: s.time, name: s.name, tel: s.tel, email: s.email.trim(), note: s.note }) })
@@ -636,9 +636,9 @@ class Component extends DCLogic {
               this._loadBusy();
               return;
             }
-            goThanks();
+            goThanks(d && d.bookingId);
           })
-          .catch(goThanks);
+          .catch(() => goThanks());
       },
       lineOfficial: lineStyle === '公式グリーン',
       lineMono: lineStyle !== '公式グリーン',
