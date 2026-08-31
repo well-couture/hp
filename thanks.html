@@ -82,7 +82,7 @@ class Component extends DCLogic {
     let lineHref = 'https://line.me/ti/p/%40132onmcg';
     try {
       const b2 = JSON.parse(localStorage.getItem('wc-booking') || 'null');
-      if (b2 && b2.bk) lineHref = 'https://liff.line.me/2011343654-bHNUmXe0/?bk=' + encodeURIComponent(b2.bk);
+      if (b2 && b2.bk) lineHref = 'https://liff.line.me/2011343654-bHNUmXe0?bk=' + encodeURIComponent(b2.bk);
     } catch (e) {}
     return { bookingLabel: label, lineHref: lineHref };
   }

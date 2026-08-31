@@ -128,21 +128,31 @@ class Component extends DCLogic {
         return liff.getProfile();
       })
       .then(p => {
-        if (p) this.setState(s => ({ userId: p.userId, displayName: p.displayName, name: s.name || p.displayName }));
+        if (p) {
+          this.setState(s => ({ userId: p.userId, displayName: p.displayName, name: s.name || p.displayName }));
+          this._maybeLink(p.userId);
+        }
       })
       .catch(() => {});
+  }
+  // Web予約の後追い紐付け: ログイン完了後にbkがあれば紐付けてサンクスへ
+  _maybeLink(userId) {
+    const bk = this._getBk();
+    const gasUrl = this.props.gasUrl ?? '';
+    if (!bk || !userId || !gasUrl) return;
+    fetch(gasUrl, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ action: 'link', bookingId: bk, lineUserId: userId }) })
+      .catch(() => {})
+      .then(() => { window.location.replace('./line-thanks.html'); });
   }
   _getBk() {
     const q = new URLSearchParams(window.location.search);
     let bk = q.get('bk');
     if (!bk && q.get('liff.state')) {
-      try { bk = new URLSearchParams(q.get('liff.state').replace(/^\?/, '')).get('bk'); } catch (e) {}
+      try { bk = new URLSearchParams(q.get('liff.state').replace(/^\/?\??/, '')).get('bk'); } catch (e) {}
     }
     return bk;
   }
   componentDidMount() {
-    const bk = this._getBk();
-    if (bk) { window.location.replace('./line-link.html?bk=' + encodeURIComponent(bk)); return; }
     this._loadBusy(); this._initLiff();
   }
   renderVals() {
