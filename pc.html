@@ -146,14 +146,14 @@ a:hover{color:#8a7f6f}
           <div style="display:flex;flex-direction:column;gap:8px" data-reveal>
             <span style="font-size:10px;letter-spacing:0.32em;color:#8a7f6f">CHAPTER 02</span>
             <span style="font-family:'Hunter',serif;font-size:34px;letter-spacing:0.1em;color:#3d372f;line-height:1.2">THE STUDIO</span>
-            <span style="font-size:11px;letter-spacing:0.24em;color:#8a7f6f">一日一組さま、貸切のスタジオで</span>
+            <span style="font-size:11px;letter-spacing:0.24em;color:#8a7f6f">おふたりだけの、貸切のスタジオで</span>
           </div>
-          <p style="margin:0;font-size:13px;line-height:2.3;letter-spacing:0.06em;color:#6b6254;text-wrap:pretty">目黒駅から徒歩5分。一日一組さまの貸切スタジオは、撮影ごとに設えを組み替えます。キャンドルを灯した夜の部屋、花に満ちた部屋、装飾を削いだ白とグレーの背景。おふたりの世界観に合わせて、空間そのものから仕立てます。</p>
+          <p style="margin:0;font-size:13px;line-height:2.3;letter-spacing:0.06em;color:#6b6254;text-wrap:pretty">目黒駅から徒歩5分。おふたりのためだけに貸し切るスタジオは、撮影ごとに設えを組み替えます。キャンドルを灯した夜の部屋、花に満ちた部屋、装飾を削いだ白とグレーの背景。おふたりの世界観に合わせて、空間そのものから仕立てます。</p>
         </div>
         <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;max-width:520px;justify-self:end;width:100%">
           <div style="display:flex;flex-direction:column;gap:8px">
             <image-slot id="v3pc-studio-1" src="./assets/photos/80.webp" shape="rect" style="width:100%;height:340px" placeholder="スタジオの写真"></image-slot>
-            <span style="font-size:9px;letter-spacing:0.24em;color:#8a7f6f;text-align:center">ONE DAY, ONE COUPLE</span>
+            <span style="font-size:9px;letter-spacing:0.24em;color:#8a7f6f;text-align:center">PRIVATE STUDIO</span>
           </div>
           <div style="display:flex;flex-direction:column;gap:8px;margin-top:36px">
             <image-slot id="v3pc-studio-2" src="./assets/photos/69.webp" shape="rect" style="width:100%;height:340px" placeholder="撮影風景の写真"></image-slot>
@@ -344,9 +344,9 @@ a:hover{color:#8a7f6f}
             <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px;font-size:13px;letter-spacing:0.05em;line-height:1.7;color:#4a4438">
               <li>・ ドレス 1着</li>
               <li>・ ヘアメイク・着付け・リハーサル</li>
-              <li>・ スタジオ撮影 2時間(貸切)</li>
-              <li>・ 全データ納品 150カット以上(色調補正込み)</li>
-              <li>・ ビューティーレタッチ 5カット</li>
+              <li>・ スタジオ撮影 150分(貸切)</li>
+              <li>・ 全データ納品 150カット(色調補正込み)</li>
+              <li>・ ビューティーレタッチ 8カット</li>
             </ul>
           </div>
           <a href="#form" style="display:block;text-align:center;font-size:12px;letter-spacing:0.24em;color:#f2efe8;background:#141210;padding:16px;margin-top:auto">このプランで相談する</a>
@@ -367,7 +367,7 @@ a:hover{color:#8a7f6f}
           <image-slot id="v3pc-opt-album" src="./assets/photos/opt-album.webp" shape="rect" style="width:100%;height:240px" placeholder="アルバムの写真"></image-slot>
           <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
             <span style="font-size:13.5px;letter-spacing:0.1em;color:#2e2922">アルバム / フォトブック制作</span>
-            <span style="flex:none;font-family:'Hunter',serif;font-size:17px;color:#3d372f">¥38,500〜</span>
+            <span style="flex:none;font-family:'Hunter',serif;font-size:17px;color:#3d372f">¥45,000〜</span>
           </div>
           <p style="margin:0;font-size:12px;line-height:2.1;letter-spacing:0.05em;color:#6b6254;text-wrap:pretty">デザイナーがセレクトとレイアウトを担当。手触りのよい表紙素材と、開きの美しいフラット製本。ご両親への贈呈用の小さな一冊も承ります。</p>
         </div>
@@ -603,7 +603,7 @@ class Component extends DCLogic {
       flow: [
         { no: '01', title: '来店予約', body: 'LINEまたはオンラインフォームから、ご希望の日時をお知らせください。' },
         { no: '02', title: 'カウンセリング・ドレス試着', body: '所要約60分。プランのご説明とドレスのご試着ができます。' },
-        { no: '03', title: '撮影当日', body: 'ヘアメイク・お支度の後、貸切スタジオで約2時間の撮影。' },
+        { no: '03', title: '撮影当日', body: 'ヘアメイク・お支度の後、貸切スタジオで約2時間半の撮影。' },
         { no: '04', title: 'データ納品', body: 'データは最短翌日にお届け。ビューティーレタッチ込みの全データは約3週間で納品します。' },
       ],
       faqs: faqsData.map(([q, a], i) => ({
