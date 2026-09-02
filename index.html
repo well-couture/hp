@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>/*__wc_redirect*/if(screen.width>=900 && matchMedia('(min-width: 900px)').matches && !location.search.includes('m=1')){location.replace('./pc.html');}</script>
+<script>/*__wc_redirect*/if(screen.width>=900 && matchMedia('(min-width: 900px)').matches && !location.search.includes('m=1')){location.replace('./pc');}</script>
 <title>Well couture STUDIO | 東京・目黒のウェディングフォトスタジオ</title>
 <script src="./support.js"></script>
 <!-- Google tag (gtag.js) -->
@@ -114,7 +114,7 @@ a:hover{color:#8a7f6f}
         </div>
       </div>
       <p style="margin:0;font-size:11px;line-height:1.9;letter-spacing:0.05em;color:#a99f8e">挙式当日のドレスレンタルのみのご利用も承ります。</p>
-      <a href="./dress.html" style="display:block;text-align:center;font-size:11px;letter-spacing:0.24em;color:#141210;background:#f2efe8;padding:15px;margin-top:4px">ドレス一覧を見る</a>
+      <a href="./dress" style="display:block;text-align:center;font-size:11px;letter-spacing:0.24em;color:#141210;background:#f2efe8;padding:15px;margin-top:4px">ドレス一覧を見る</a>
     </div>
 
     <!-- STUDIO -->
@@ -302,7 +302,7 @@ a:hover{color:#8a7f6f}
           <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px;font-size:12px;letter-spacing:0.05em;line-height:1.7;color:#4a4438">
             <li>・ ドレス 1着</li>
             <li>・ ヘアメイク・着付け・リハーサル</li>
-            <li>・ スタジオ撮影 150分(貸切)</li>
+            <li>・ スタジオ撮影 2時間(貸切)</li>
             <li>・ 全データ納品 150カット(色調補正込み)</li>
             <li>・ ビューティーレタッチ 8カット</li>
           </ul>
@@ -369,7 +369,7 @@ a:hover{color:#8a7f6f}
         <span style="flex:none;font-family:'Hunter',serif;font-size:17px;color:#8a7f6f;width:32px">03</span>
         <div style="display:flex;flex-direction:column;gap:10px;flex:1;min-width:0">
           <span style="font-size:13px;letter-spacing:0.1em;color:#2e2922">撮影当日</span>
-          <span style="font-size:11px;line-height:1.9;letter-spacing:0.04em;color:#6b6254">ヘアメイク・お支度の後、貸切スタジオで約2時間半の撮影。</span>
+          <span style="font-size:11px;line-height:1.9;letter-spacing:0.04em;color:#6b6254">ヘアメイク・お支度の後、貸切スタジオで約2時間の撮影。</span>
         </div>
       </div>
       <div style="display:flex;gap:16px;padding:18px 0;border-top:1px solid rgba(61,55,47,0.14)">
@@ -491,7 +491,7 @@ a:hover{color:#8a7f6f}
       <a href="#plan" style="font-size:9px;letter-spacing:0.2em;color:#a99f8e">PLAN</a>
       <a href="#access" style="font-size:9px;letter-spacing:0.2em;color:#a99f8e">ACCESS</a>
     </div>
-    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center"><a href="./terms.html" style="font-size:8.5px;letter-spacing:0.1em;color:#8a7f6f">利用規約・キャンセルポリシー</a><a href="./tokushoho.html" style="font-size:8.5px;letter-spacing:0.1em;color:#8a7f6f">特定商取引法に基づく表記</a><a href="./privacy.html" style="font-size:8.5px;letter-spacing:0.1em;color:#8a7f6f">プライバシーポリシー</a></div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center"><a href="./terms" style="font-size:8.5px;letter-spacing:0.1em;color:#8a7f6f">利用規約・キャンセルポリシー</a><a href="./tokushoho" style="font-size:8.5px;letter-spacing:0.1em;color:#8a7f6f">特定商取引法に基づく表記</a><a href="./privacy" style="font-size:8.5px;letter-spacing:0.1em;color:#8a7f6f">プライバシーポリシー</a></div>
     <span style="font-size:8px;letter-spacing:0.14em;color:#6b6254">運営会社: 株式会社The Well</span>
     <span style="font-size:8px;letter-spacing:0.14em;color:#6b6254">© 2026 Well couture STUDIO</span>
   </footer>
@@ -627,7 +627,7 @@ class Component extends DCLogic {
         this.setState({ submitting: true, error: '' });
         const goThanks = (bk) => {
           try { localStorage.setItem('wc-booking', JSON.stringify({ date: s.date, time: s.time, name: s.name, bk: bk || '' })); } catch (e) {}
-          window.location.href = './thanks.html';
+          window.location.href = './thanks';
         };
         fetch(gasUrl, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ date: s.date, time: s.time, name: s.name, tel: s.tel, email: s.email.trim(), note: s.note }) })
           .then(r => r.json())
@@ -646,7 +646,7 @@ class Component extends DCLogic {
       flow: [
         { no: '01', title: '来店予約', body: 'WEBフォームまたはLINEから、ご希望の日時をお知らせください。' },
         { no: '02', title: 'カウンセリング・ドレス見学', body: '所要約60分。プランのご説明とドレスのご試着ができます。' },
-        { no: '03', title: '撮影当日', body: 'ヘアメイク・お支度の後、貸切スタジオで約2時間半の撮影。' },
+        { no: '03', title: '撮影当日', body: 'ヘアメイク・お支度の後、貸切スタジオで約2時間の撮影。' },
         { no: '04', title: 'データ納品', body: '約3週間で全データをオンライン納品。アルバムは約6週間です。' },
       ],
       faqs: faqsData.map(([q, a], i) => ({
