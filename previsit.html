@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Well couture ご来店前アンケート</title>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S3W7C1NC2H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-S3W7C1NC2H');
+</script>
+<style>
+  /*
+    Well couture 来店前ヒアリングフォーム v1（2026-08-31）
+    位置づけ: 予約確定〜ご来店までの間に回答いただく事前アンケート。
+    導線: 予約確定Flexカード/確定メールの「ご来店前アンケート」リンク（?bk=予約ID付き）。
+    送信先: FORM_ENDPOINT（GAS v9の action=hearing）。設問はデザイン踏襲元=wellcouture_hearing_form_v1.html と別物。
+    HP公開時のファイル名: previsit.html（GAS v9 の PREVISIT_URL と一致させること）
+  */
+  :root {
+    --bg: #FBF9F5;
+    --card: #FFFFFF;
+    --ink: #221F1A;
+    --muted: #94897A;
+    --hairline: #E6E0D2;
+    --accent: #A5854E;
+    --accent-soft: #D9C9A6;
+    --error: #B3432F;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+    font-size: 15px;
+    line-height: 1.8;
+    padding: 0 0 80px;
+  }
+  .serif { font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif; }
+
+  header {
+    text-align: center;
+    padding: 52px 24px 30px;
+  }
+  .wordmark {
+    font-family: Didot, "Bodoni 72", "Hiragino Mincho ProN", serif;
+    font-size: 26px;
+    letter-spacing: 0.32em;
+    text-indent: 0.32em;
+    font-weight: 500;
+  }
+  .wordmark small {
+    display: block;
+    font-size: 9px;
+    letter-spacing: 0.52em;
+    text-indent: 0.52em;
+    color: var(--muted);
+    margin-top: 6px;
+    font-family: inherit;
+  }
+  .rule {
+    width: 36px; height: 1px; background: var(--accent);
+    margin: 26px auto 0;
+  }
+
+  main { max-width: 560px; margin: 0 auto; padding: 0 20px; }
+
+  .intro {
+    text-align: center;
+    padding: 18px 4px 34px;
+  }
+  .intro h1 {
+    font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    margin-bottom: 14px;
+  }
+  .intro p {
+    font-size: 13px;
+    color: var(--muted);
+    text-align: left;
+    max-width: 34em;
+    margin: 0 auto;
+  }
+
+  .q {
+    background: var(--card);
+    border: 1px solid var(--hairline);
+    border-radius: 2px;
+    padding: 24px 22px 26px;
+    margin-bottom: 14px;
+  }
+  .q-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .q-no {
+    font-family: Didot, "Bodoni 72", "Hiragino Mincho ProN", serif;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+  .q-title {
+    font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
+    font-size: 15.5px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+  }
+  .req {
+    font-size: 10px;
+    color: var(--accent);
+    border: 1px solid var(--accent-soft);
+    border-radius: 2px;
+    padding: 0 6px;
+    margin-left: auto;
+    white-space: nowrap;
+    letter-spacing: 0.1em;
+  }
+  .opt { color: var(--muted); border-color: var(--hairline); }
+  .hint { font-size: 12px; color: var(--muted); margin: -6px 0 12px; }
+  .hint a { color: var(--accent); }
+
+  input[type="text"], input[type="tel"], input[type="email"], textarea {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid var(--hairline);
+    background: transparent;
+    padding: 10px 2px;
+    font-size: 16px; /* iOSズーム防止 */
+    font-family: inherit;
+    color: var(--ink);
+    border-radius: 0;
+    transition: border-color 0.2s;
+  }
+  input:focus, textarea:focus {
+    outline: none;
+    border-bottom: 1px solid var(--accent);
+  }
+  input::placeholder, textarea::placeholder { color: #C4BCAC; }
+  textarea { min-height: 84px; resize: vertical; line-height: 1.7; }
+
+  .choices { display: flex; flex-direction: column; gap: 10px; }
+  .choice { position: relative; }
+  .choice input {
+    position: absolute; opacity: 0; width: 100%; height: 100%;
+    left: 0; top: 0; margin: 0; cursor: pointer;
+  }
+  .choice label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid var(--hairline);
+    border-radius: 2px;
+    padding: 13px 16px;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    background: #FFFFFF;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .choice label::before {
+    content: "";
+    width: 15px; height: 15px;
+    border: 1px solid #C9C1B0;
+    border-radius: 50%;
+    flex: none;
+    transition: all 0.15s;
+  }
+  .choice.multi label::before { border-radius: 2px; }
+  .choice input:checked + label {
+    border-color: var(--accent);
+    background: #FCF9F2;
+  }
+  .choice input:checked + label::before {
+    border-color: var(--accent);
+    background: var(--accent);
+    box-shadow: inset 0 0 0 3px #FCF9F2;
+  }
+  .choice input:focus-visible + label { outline: 2px solid var(--accent-soft); outline-offset: 1px; }
+
+  .err {
+    display: none;
+    font-size: 12px;
+    color: var(--error);
+    margin-top: 8px;
+  }
+  .q.invalid { border-color: var(--error); }
+  .q.invalid .err { display: block; }
+
+  .submit-wrap { padding: 26px 0 0; }
+  button.submit {
+    width: 100%;
+    background: var(--ink);
+    color: #F7F4EC;
+    border: none;
+    border-radius: 2px;
+    padding: 17px;
+    font-size: 15px;
+    letter-spacing: 0.28em;
+    text-indent: 0.28em;
+    font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  button.submit:active { opacity: 0.75; }
+  button.submit[disabled] { opacity: 0.45; cursor: default; }
+  .privacy {
+    font-size: 11px;
+    color: var(--muted);
+    text-align: center;
+    margin-top: 14px;
+    letter-spacing: 0.04em;
+  }
+
+  /* 完了画面 */
+  #done { display: none; text-align: center; padding: 60px 8px 0; }
+  #done .rule { margin: 30px auto; }
+  #done h2 {
+    font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    margin-bottom: 22px;
+  }
+  #done p {
+    font-size: 13.5px;
+    color: var(--ink);
+    max-width: 30em;
+    margin: 0 auto 10px;
+    text-align: left;
+  }
+  #done .note { color: var(--muted); font-size: 12.5px; }
+  a.backline {
+    display: inline-block;
+    margin-top: 34px;
+    border: 1px solid var(--ink);
+    border-radius: 2px;
+    padding: 14px 44px;
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 13.5px;
+    letter-spacing: 0.2em;
+    text-indent: 0.2em;
+    font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
+  }
+  .hp-field { position: absolute; left: -9999px; opacity: 0; height: 0; overflow: hidden; }
+
+  @media (min-width: 600px) {
+    header { padding-top: 72px; }
+    .q { padding: 28px 30px 30px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wordmark">Well couture<small>STUDIO</small></div>
+  <div class="rule"></div>
+</header>
+
+<main>
+  <form id="previsit" novalidate>
+
+    <div class="intro">
+      <h1>ご来店前アンケート</h1>
+      <p>ご予約ありがとうございます。当日のご案内とドレスのご準備をよりよいものにするため、2分ほどのアンケートにご協力ください。</p>
+    </div>
+
+    <!-- honeypot -->
+    <div class="hp-field" aria-hidden="true">
+      <label>この欄は空のままにしてください<input type="text" name="company" tabindex="-1" autocomplete="off"></label>
+    </div>
+
+    <section class="q" data-field="name">
+      <div class="q-head"><span class="q-no">01</span><span class="q-title">お名前（フルネーム）</span><span class="req">必須</span></div>
+      <input type="text" name="name" placeholder="例: 山田 花子" autocomplete="name">
+      <p class="err">お名前をご入力ください</p>
+    </section>
+
+    <!-- 予約ID(?bk=)が無いときだけ表示（突合用） -->
+    <section class="q" data-field="phone" id="phoneSection" style="display:none">
+      <div class="q-head"><span class="q-no">02</span><span class="q-title">お電話番号</span><span class="req">必須</span></div>
+      <p class="hint">ご予約時と同じお電話番号をご入力ください</p>
+      <input type="tel" name="phone" placeholder="例: 09012345678" inputmode="numeric" autocomplete="tel">
+      <p class="err">お電話番号をご入力ください（10〜11桁の数字）</p>
+    </section>
+
+    <section class="q" data-field="party">
+      <div class="q-head"><span class="q-no">02</span><span class="q-title">ご来店の人数</span><span class="req">必須</span></div>
+      <div class="choices">
+        <div class="choice"><input type="radio" id="p1" name="party" value="おふたりで"><label for="p1">おふたりで</label></div>
+        <div class="choice"><input type="radio" id="p2" name="party" value="おひとりで"><label for="p2">おひとりで</label></div>
+        <div class="choice"><input type="radio" id="p3" name="party" value="ご家族・ご友人とご一緒に"><label for="p3">ご家族・ご友人とご一緒に</label></div>
+      </div>
+      <p class="err">お選びください</p>
+    </section>
+
+    <section class="q" data-field="styles">
+      <div class="q-head"><span class="q-no">03</span><span class="q-title">ご検討中の撮影スタイル</span><span class="req">必須</span></div>
+      <p class="hint">複数お選びいただけます</p>
+      <div class="choices">
+        <div class="choice multi"><input type="checkbox" id="st1" name="styles" value="スタジオ撮影"><label for="st1">スタジオ撮影</label></div>
+        <div class="choice multi"><input type="checkbox" id="st2" name="styles" value="ロケーション撮影"><label for="st2">ロケーション撮影</label></div>
+        <div class="choice multi"><input type="checkbox" id="st3" name="styles" value="ドレスレンタルのみ"><label for="st3">ドレスレンタルのみ</label></div>
+        <div class="choice multi"><input type="checkbox" id="st4" name="styles" value="当日ご相談しながら決めたい"><label for="st4">当日ご相談しながら決めたい</label></div>
+      </div>
+      <p class="err">1つ以上お選びください</p>
+    </section>
+
+    <section class="q" data-field="timing">
+      <div class="q-head"><span class="q-no">04</span><span class="q-title">撮影のご希望時期</span><span class="req">必須</span></div>
+      <div class="choices">
+        <div class="choice"><input type="radio" id="t1" name="timing" value="1〜2ヶ月以内"><label for="t1">1〜2ヶ月以内</label></div>
+        <div class="choice"><input type="radio" id="t2" name="timing" value="3〜6ヶ月以内"><label for="t2">3〜6ヶ月以内</label></div>
+        <div class="choice"><input type="radio" id="t3" name="timing" value="半年以上先"><label for="t3">半年以上先</label></div>
+        <div class="choice"><input type="radio" id="t4" name="timing" value="未定"><label for="t4">未定</label></div>
+      </div>
+      <p class="err">お選びください</p>
+    </section>
+
+    <section class="q" data-field="dressWish">
+      <div class="q-head"><span class="q-no">05</span><span class="q-title">気になるドレス</span><span class="req opt">任意</span></div>
+      <p class="hint"><a href="https://well-couture.com/dress.html" target="_blank" rel="noopener">ドレスコレクション</a>からドレス名をご記入ください（複数可）。当日ご試着いただけるようご準備いたします。</p>
+      <input type="text" name="dressWish" placeholder="例: JANE / WHITE 3">
+    </section>
+
+    <section class="q" data-field="dressSize">
+      <div class="q-head"><span class="q-no">06</span><span class="q-title">普段のお洋服のサイズ感</span><span class="req opt">任意</span></div>
+      <p class="hint">ご試着の事前準備の参考にいたします</p>
+      <div class="choices">
+        <div class="choice"><input type="radio" id="sz1" name="dressSize" value="XS"><label for="sz1">XS</label></div>
+        <div class="choice"><input type="radio" id="sz2" name="dressSize" value="S"><label for="sz2">S</label></div>
+        <div class="choice"><input type="radio" id="sz3" name="dressSize" value="M"><label for="sz3">M</label></div>
+        <div class="choice"><input type="radio" id="sz4" name="dressSize" value="L"><label for="sz4">L</label></div>
+        <div class="choice"><input type="radio" id="sz5" name="dressSize" value="当日ご相談したい"><label for="sz5">当日ご相談したい</label></div>
+      </div>
+    </section>
+
+    <section class="q" data-field="priorities">
+      <div class="q-head"><span class="q-no">07</span><span class="q-title">特に重視されること</span><span class="req opt">任意</span></div>
+      <p class="hint">複数お選びいただけます</p>
+      <div class="choices">
+        <div class="choice multi"><input type="checkbox" id="pr1" name="priorities" value="写真のクオリティ"><label for="pr1">写真のクオリティ</label></div>
+        <div class="choice multi"><input type="checkbox" id="pr2" name="priorities" value="ドレス・衣装"><label for="pr2">ドレス・衣装</label></div>
+        <div class="choice multi"><input type="checkbox" id="pr3" name="priorities" value="ヘアメイク"><label for="pr3">ヘアメイク</label></div>
+        <div class="choice multi"><input type="checkbox" id="pr4" name="priorities" value="料金"><label for="pr4">料金</label></div>
+        <div class="choice multi"><input type="checkbox" id="pr5" name="priorities" value="日程・スケジュール"><label for="pr5">日程・スケジュール</label></div>
+      </div>
+    </section>
+
+    <section class="q" data-field="weddingPlan">
+      <div class="q-head"><span class="q-no">08</span><span class="q-title">結婚式（挙式）のご予定</span><span class="req opt">任意</span></div>
+      <div class="choices">
+        <div class="choice"><input type="radio" id="w1" name="weddingPlan" value="式場を探している"><label for="w1">式場を探している</label></div>
+        <div class="choice"><input type="radio" id="w2" name="weddingPlan" value="挙式が決まっている"><label for="w2">挙式が決まっている</label></div>
+        <div class="choice"><input type="radio" id="w3" name="weddingPlan" value="挙式は予定していない"><label for="w3">挙式は予定していない</label></div>
+        <div class="choice"><input type="radio" id="w4" name="weddingPlan" value="挙式済み"><label for="w4">挙式済み</label></div>
+      </div>
+    </section>
+
+    <section class="q" data-field="notes">
+      <div class="q-head"><span class="q-no">09</span><span class="q-title">ご質問・ご不安な点</span><span class="req opt">任意</span></div>
+      <p class="hint">体質やアレルギーなど、ご配慮が必要なことがございましたらこちらにお書きください</p>
+      <textarea name="notes" placeholder="例: 撮影の流れについて詳しく知りたい / 肌が敏感なためメイクを相談したい"></textarea>
+    </section>
+
+    <div class="submit-wrap">
+      <button type="submit" class="submit">送 信 す る</button>
+      <p class="privacy">ご入力いただいた情報は、ご案内の目的にのみ使用いたします。</p>
+    </div>
+  </form>
+
+  <div id="done">
+    <h2>ご回答ありがとうございます</h2>
+    <div class="rule"></div>
+    <p>いただいた内容をもとに、当日のご案内とドレスのご準備をいたします。</p>
+    <p class="note">ご希望のイメージのお写真などございましたら、公式LINEにそのままお送りください。</p>
+    <a class="backline" href="https://lin.ee/YRrvJ5g">LINE にもどる</a>
+  </div>
+</main>
+
+<script>
+  // ── 設定 ─────────────────────────────────────────────
+  // GASウェブアプリのURL（v9デプロイ後に有効。空のあいだはデモ動作: 送信せず完了画面のみ）
+  var FORM_ENDPOINT = "https://script.google.com/macros/s/AKfycbwZqRN8_KqI6USbxvktASGh4l6GcMfMS-OVw6H-Q9JxTPsvyWkRFVNeNx2XxSm-s3n8/exec";
+  // ─────────────────────────────────────────────────────
+
+  var form = document.getElementById("previsit");
+  var done = document.getElementById("done");
+
+  // 予約ID(?bk=bkxxxxxxxxxx)。確定メール/Flexカードのリンクから付与される。
+  var bk = (new URLSearchParams(location.search).get("bk") || "").trim();
+  var phoneNeeded = !/^bk[0-9a-f]{10}$/.test(bk);
+  if (phoneNeeded) {
+    bk = "";
+    document.getElementById("phoneSection").style.display = "";
+    // 電話欄が入る分、設問番号を振り直す
+    var nos = form.querySelectorAll("section.q .q-no");
+    for (var ni = 0; ni < nos.length; ni++) {
+      nos[ni].textContent = (ni + 1 < 10 ? "0" : "") + (ni + 1);
+    }
+  }
+
+  function section(name) {
+    return form.querySelector('[data-field="' + name + '"]');
+  }
+  function markInvalid(name, bad) {
+    section(name).classList.toggle("invalid", !!bad);
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var fd = new FormData(form);
+
+    var name = (fd.get("name") || "").trim();
+    var phone = (fd.get("phone") || "").replace(/[^0-9]/g, "");
+    var party = fd.get("party");
+    var styles = fd.getAll("styles");
+    var timing = fd.get("timing");
+
+    var bad = false;
+    markInvalid("name", !name); if (!name) bad = true;
+    if (phoneNeeded) {
+      var phoneOk = /^0\d{9,10}$/.test(phone);
+      markInvalid("phone", !phoneOk); if (!phoneOk) bad = true;
+    }
+    markInvalid("party", !party); if (!party) bad = true;
+    markInvalid("styles", styles.length === 0); if (styles.length === 0) bad = true;
+    markInvalid("timing", !timing); if (!timing) bad = true;
+
+    if (bad) {
+      var first = form.querySelector(".q.invalid");
+      if (first) first.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+
+    // honeypot: 埋まっていたら静かに成功扱い
+    if ((fd.get("company") || "").length > 0) { showDone(); return; }
+
+    var payload = {
+      action: "hearing",
+      bk: bk,
+      name: name,
+      phone: phone,
+      party: party,
+      styles: styles,
+      timing: timing,
+      dressWish: (fd.get("dressWish") || "").trim(),
+      dressSize: fd.get("dressSize") || "",
+      priorities: fd.getAll("priorities"),
+      weddingPlan: fd.get("weddingPlan") || "",
+      notes: (fd.get("notes") || "").trim(),
+      submittedAt: new Date().toISOString()
+    };
+
+    var btn = form.querySelector("button.submit");
+    btn.disabled = true;
+    btn.textContent = "送 信 中 …";
+
+    if (!FORM_ENDPOINT) {
+      // デモ動作
+      setTimeout(showDone, 500);
+      return;
+    }
+
+    fetch(FORM_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" }, // GAS doPost向け(プリフライト回避)
+      body: JSON.stringify(payload)
+    }).then(function (r) { return r.json(); })
+      .then(function (res) {
+        if (res && res.ok) { showDone(); return; }
+        throw new Error((res && res.error) || "server_error");
+      })
+      .catch(function () {
+        btn.disabled = false;
+        btn.textContent = "送 信 す る";
+        alert("送信に失敗しました。お手数ですが、電波状況をご確認のうえ再度お試しください。");
+      });
+  });
+
+  function showDone() {
+    form.style.display = "none";
+    done.style.display = "block";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+</script>
+  <footer style="display:flex;flex-direction:column;gap:16px;align-items:center;padding:24px 30px 44px;text-align:center">
+    <a href="./index" style="display:block;width:100%;box-sizing:border-box;font-size:11px;letter-spacing:0.22em;color:#4a4438;border:1px solid rgba(61,55,47,0.35);padding:14px">HPを見る</a>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center"><a href="./terms" style="font-size:8.5px;letter-spacing:0.1em;color:#8a7f6f">利用規約・キャンセルポリシー</a><a href="./tokushoho" style="font-size:8.5px;letter-spacing:0.1em;color:#8a7f6f">特定商取引法に基づく表記</a><a href="./privacy" style="font-size:8.5px;letter-spacing:0.1em;color:#8a7f6f">プライバシーポリシー</a></div>
+    <span style="font-size:8px;letter-spacing:0.14em;color:#6b6254">運営会社: 株式会社The Well</span>
+    <span style="font-size:8px;letter-spacing:0.14em;color:#6b6254">© 2026 Well couture STUDIO</span>
+  </footer>
+</body>
+</html>

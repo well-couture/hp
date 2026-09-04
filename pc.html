@@ -13,6 +13,7 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-S3W7C1NC2H');
+  document.addEventListener('click', function (e) { var a = e.target && e.target.closest ? e.target.closest('a[href*="line.me/ti/p"],a[href*="lin.ee"]') : null; if (a) gtag('event', 'line_add_click', { page_path: location.pathname, link_text: (a.textContent || '').trim().slice(0, 40) }); }, true);
 </script>
 </head>
 <body>
@@ -480,6 +481,14 @@ a:hover{color:#8a7f6f}
               <span style="font-size:11px;letter-spacing:0.1em;color:#4a4438">メールアドレス <span style="font-size:9px;color:#a3543f">必須</span></span>
               <input value="{{ email }}" onChange="{{ setEmail }}" type="email" placeholder="example@mail.com" style="border:1px solid rgba(61,55,47,0.25);background:#ffffff;padding:11px 12px;font-family:'Shippori Mincho',serif;font-size:13px;color:#2e2922;outline:none">
             </label>
+            <div style="display:flex;flex-direction:column;gap:5px">
+              <span style="font-size:11px;letter-spacing:0.1em;color:#4a4438">Well coutureをどこでお知りになりましたか <span style="font-size:9px;color:#a3543f">必須</span></span>
+              <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px">
+                <sc-for list="{{ referrals }}" as="r" hint-placeholder-count="5">
+                  <button onClick="{{ r.pick }}" style="border:1px solid rgba(61,55,47,0.25);padding:9px 4px;cursor:pointer;font-family:'Shippori Mincho',serif;font-size:11px;letter-spacing:0.04em;background:{{ r.bg }};color:{{ r.fg }}">{{ r.label }}</button>
+                </sc-for>
+              </div>
+            </div>
             <label style="display:flex;flex-direction:column;gap:5px;flex:1">
               <span style="font-size:11px;letter-spacing:0.1em;color:#4a4438">ご質問・ご要望(任意)</span>
               <textarea value="{{ note }}" onChange="{{ setNote }}" rows="4" placeholder="撮影のみ希望、ドレス見学のみ など" style="border:1px solid rgba(61,55,47,0.25);background:#ffffff;padding:11px 12px;font-family:'Shippori Mincho',serif;font-size:13px;color:#2e2922;outline:none;resize:vertical"></textarea>
@@ -516,7 +525,7 @@ a:hover{color:#8a7f6f}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900},&quot;showCampaign&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;キャンペーン&quot;},&quot;gasUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://script.google.com/macros/s/AKfycbwZqRN8_KqI6USbxvktASGh4l6GcMfMS-OVw6H-Q9JxTPsvyWkRFVNeNx2XxSm-s3n8/exec&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;予約連携(GAS URL)&quot;}}">
 class Component extends DCLogic {
-  state = { open: 0, monthOff: 0, date: null, time: '', name: '', tel: '', email: '', note: '', busy: {}, submitting: false, error: '' };
+  state = { open: 0, monthOff: 0, date: null, time: '', name: '', tel: '', email: '', note: '', referral: '', busy: {}, submitting: false, error: '' };
   _loadBusy() {
     const gasUrl = this.props.gasUrl ?? '';
     if (!gasUrl) return;
@@ -563,7 +572,7 @@ class Component extends DCLogic {
     }
     const dateLabel = s.date ? (() => { const d = new Date(s.date + 'T00:00:00'); return (d.getMonth() + 1) + '月' + d.getDate() + '日(' + '日月火水木金土'[d.getDay()] + ')'; })() : '';
     const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s.email.trim());
-    const ready = s.date && s.time && s.name.trim() && s.tel.trim() && emailOk;
+    const ready = s.date && s.time && s.name.trim() && s.tel.trim() && emailOk && s.referral;
     return {
       showCampaign: this.props.showCampaign ?? true,
       monthLabel: base.getFullYear() + '年 ' + (base.getMonth() + 1) + '月',
@@ -581,11 +590,14 @@ class Component extends DCLogic {
         };
       }),
       name: s.name, tel: s.tel, email: s.email, note: s.note,
+      referrals: [['Instagram', 'Instagram'], ['Web検索', 'Web検索'], ['広告', '広告'], ['ご紹介', '紹介'], ['提携先のご案内', '送客提携']].map(([label, v]) => ({
+        label, bg: s.referral === v ? '#141210' : '#ffffff', fg: s.referral === v ? '#f2efe8' : '#2e2922', pick: () => this.setState({ referral: v }),
+      })),
       setName: e => this.setState({ name: e.target.value }),
       setTel: e => this.setState({ tel: e.target.value }),
       setEmail: e => this.setState({ email: e.target.value }),
       setNote: e => this.setState({ note: e.target.value }),
-      summary: ready ? 'ご希望日時:' + dateLabel + ' ' + s.time : '日時・お名前・お電話番号・メールアドレスをご入力ください',
+      summary: ready ? 'ご希望日時:' + dateLabel + ' ' + s.time : '日時・お客さま情報・お知りになったきっかけをご入力ください',
       cantSubmit: !ready || s.submitting,
       submitBg: ready && !s.submitting ? '#141210' : '#c3bbaa',
       submitLabel: s.submitting ? '送信中…' : 'この内容で予約する',
@@ -600,7 +612,7 @@ class Component extends DCLogic {
         };
         if (!gasUrl) { goThanks(); return; }
         this.setState({ submitting: true, error: '' });
-        fetch(gasUrl, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ date: s.date, time: s.time, name: s.name, tel: s.tel, email: s.email.trim(), note: s.note }) })
+        fetch(gasUrl, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ date: s.date, time: s.time, name: s.name, tel: s.tel, email: s.email.trim(), note: s.note, referral: s.referral }) })
           .then(r => r.json())
           .then(d => {
             if (d && d.ok === false && d.error === 'slot_taken') {

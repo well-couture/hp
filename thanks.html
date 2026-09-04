@@ -12,6 +12,7 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-S3W7C1NC2H');
+  document.addEventListener('click', function (e) { var a = e.target && e.target.closest ? e.target.closest('a[href*="line.me/ti/p"],a[href*="lin.ee"]') : null; if (a) gtag('event', 'line_add_click', { page_path: location.pathname, link_text: (a.textContent || '').trim().slice(0, 40) }); }, true);
 </script>
 </head>
 <body>
