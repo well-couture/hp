@@ -6,6 +6,7 @@
 <title>Well couture STUDIO（ウェルクチュール）| 東京・目黒のウェディングフォトスタジオ</title>
 <meta name="robots" content="noindex">
 <script src="./support.js"></script>
+<script src="./assets/attrib.js"></script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-S3W7C1NC2H"></script>
 <script>
@@ -13,7 +14,7 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-S3W7C1NC2H');
-  document.addEventListener('click', function (e) { var a = e.target && e.target.closest ? e.target.closest('a[href*="line.me/ti/p"],a[href*="lin.ee"]') : null; if (a) gtag('event', 'line_add_click', { page_path: location.pathname, link_text: (a.textContent || '').trim().slice(0, 40) }); }, true);
+  document.addEventListener('click', function (e) { var a = e.target && e.target.closest ? e.target.closest('a[href*="line.me/ti/p"],a[href*="lin.ee"]') : null; if (a) { var at = window.wcAttribFlat ? window.wcAttribFlat() : {}; gtag('event', 'line_add_click', { page_path: location.pathname, link_text: (a.textContent || '').trim().slice(0, 40), utm_source: at.utmSource || '', utm_medium: at.utmMedium || '', utm_campaign: at.utmCampaign || '', line_route: a.getAttribute('data-wc-line-route') ? 'ad' : 'default' }); } }, true);
 </script>
 </head>
 <body>

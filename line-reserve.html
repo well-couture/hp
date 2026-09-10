@@ -6,6 +6,7 @@
 <title>来店予約 | Well couture STUDIO</title>
 <meta name="robots" content="noindex">
 <script src="./support.js"></script>
+<script src="./assets/attrib.js"></script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-S3W7C1NC2H"></script>
 <script>
@@ -241,7 +242,7 @@ class Component extends DCLogic {
         };
         if (!gasUrl) { goThanks(); return; }
         this.setState({ submitting: true, error: '' });
-        fetch(gasUrl, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ date: s.date, time: s.time, name: s.name, tel: s.tel, email: s.email.trim(), note: s.note, referral: s.referral, lineUserId: s.userId, source: 'line' }) })
+        fetch(gasUrl, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ date: s.date, time: s.time, name: s.name, tel: s.tel, email: s.email.trim(), note: s.note, referral: s.referral, lineUserId: s.userId, source: 'line', attrib: (window.wcAttribFlat ? window.wcAttribFlat() : {}) }) })
           .then(r => r.json())
           .then(d => {
             if (d && d.ok === false && d.error === 'slot_taken') {
