@@ -12,7 +12,7 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-S3W7C1NC2H');
+  gtag('config', 'G-S3W7C1NC2H', window.wcPageReferrer ? { page_referrer: window.wcPageReferrer } : {});
   document.addEventListener('click', function (e) { var a = e.target && e.target.closest ? e.target.closest('a[href*="line.me/ti/p"],a[href*="lin.ee"]') : null; if (a) { var at = window.wcAttribFlat ? window.wcAttribFlat() : {}; gtag('event', 'line_add_click', { page_path: location.pathname, link_text: (a.textContent || '').trim().slice(0, 40), utm_source: at.utmSource || '', utm_medium: at.utmMedium || '', utm_campaign: at.utmCampaign || '', line_route: a.getAttribute('data-wc-line-route') ? 'ad' : 'default' }); } }, true);
 </script>
 </head>

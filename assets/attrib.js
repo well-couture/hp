@@ -1,10 +1,12 @@
-/* Well couture 流入属性の保持・引き継ぎ (2026-09-10 v1)
+/* Well couture 流入属性の保持・引き継ぎ (2026-09-11 v2)
  * 役割: ①着地URLのutm/クリックIDをlocalStorageに保存(初回着地=first / 最新=last)
  *       ②SP/PC振り分けや内部リンク遷移でパラメータを引き継ぐ
  *       ③予約フォーム送信に流入属性を同梱する (window.wcAttribFlat)
  *       ④LINEアプリ内ブラウザからの来訪でutmが無ければ utm_source=line を自動付与(GA4がLINE経由と判別できる)
  *       ⑤保存済み経路に応じてLINE友だち追加リンクを差し替える (WC_LINE_ROUTES)
- * 注意: このファイルはgtag(GA4)より前に読み込むこと(④のURL書き換えをGA4の計測前に済ませるため)
+ *       ⑥SP/PC振り分け(__wc_redirect)で失われる元の参照元を復元する(v2)。振り分け前に ref=元の参照元 がURLに乗るので、
+ *         読み取ったらURLから消し(utmは残す)、window.wcPageReferrer に入れる。各ページの gtag('config') が page_referrer として渡す
+ * 注意: このファイルはgtag(GA4)より前に読み込むこと(④⑥のURL書き換えをGA4の計測前に済ませるため)
  */
 (function () {
   var KEY = 'wc_attrib';
@@ -39,6 +41,18 @@
   function save(o) { try { localStorage.setItem(KEY, JSON.stringify(o)); } catch (e) {} }
   function isLineApp() { return /\bLine\//i.test(navigator.userAgent); }
 
+  /* ⑥ 振り分け前の参照元を ref= から復元し、URLから消す(履歴は増やさない)。無ければ通常の document.referrer */
+  var origRef = document.referrer || '';
+  try {
+    var u0 = new URL(location.href), refParam = u0.searchParams.get('ref');
+    if (refParam) {
+      origRef = refParam;
+      u0.searchParams.delete('ref');
+      history.replaceState(history.state, '', u0.toString());
+    }
+  } catch (e) {}
+  window.wcPageReferrer = origRef;
+
   /* ④ LINEアプリ内でutm無し → utm_source=line&utm_medium=inapp をURLに付与(履歴は増やさない) */
   var params = parse(location.search);
   if (isLineApp() && !params.utm_source) {
@@ -55,11 +69,11 @@
   if (store.first && now - (store.first.ts || 0) > TTL_DAYS * 86400000) store = {};
   var hasTrack = Object.keys(params).length > 0;
   if (hasTrack) {
-    var entry = { url: location.href, params: params, referrer: document.referrer || '', ts: now };
+    var entry = { url: location.href, params: params, referrer: origRef, ts: now };
     if (!store.first) store.first = entry;
     store.last = entry;
-  } else if (!store.first && document.referrer && document.referrer.indexOf(location.host) < 0) {
-    store.first = { url: location.href, params: {}, referrer: document.referrer, ts: now };
+  } else if (!store.first && origRef && origRef.indexOf(location.host) < 0) {
+    store.first = { url: location.href, params: {}, referrer: origRef, ts: now };
     store.last = store.first;
   }
   save(store);
