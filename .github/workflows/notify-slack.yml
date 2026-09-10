@@ -1,0 +1,33 @@
+# push → Slack通知（Incoming Webhook）。SLACK_WEBHOOK_URL が未設定なら何もしない。
+name: notify-slack
+on:
+  push:
+    branches: [main]
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build message and post
+        env:
+          WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          REPO: ${{ github.repository }}
+          PUSHER: ${{ github.event.pusher.name }}
+          COMPARE: ${{ github.event.compare }}
+          COMMITS: ${{ toJson(github.event.commits) }}
+        run: |
+          if [ -z "$WEBHOOK" ]; then echo "SLACK_WEBHOOK_URL 未設定のためスキップ"; exit 0; fi
+          python3 - <<'PY'
+          import json, os, urllib.request
+          commits = json.loads(os.environ["COMMITS"])
+          repo, pusher, compare = os.environ["REPO"], os.environ["PUSHER"], os.environ["COMPARE"]
+          lines = []
+          for c in commits[-10:]:
+              msg = c["message"].strip().splitlines()[0][:120]
+              files = c.get("added", []) + c.get("modified", []) + c.get("removed", [])
+              fl = ", ".join(files[:6]) + (f" ほか{len(files)-6}件" if len(files) > 6 else "")
+              lines.append(f"• <{c['url']}|{c['id'][:7]}> {msg}" + (f"\n    _{fl}_" if fl else ""))
+          more = f"\n（他 {len(commits)-10} 件）" if len(commits) > 10 else ""
+          text = f"*{repo}* に *{pusher}* が push（{len(commits)}コミット）\n" + "\n".join(lines) + more + f"\n<{compare}|差分を見る>"
+          req = urllib.request.Request(os.environ["WEBHOOK"], data=json.dumps({"text": text}).encode(), headers={"Content-Type": "application/json"})
+          urllib.request.urlopen(req).read()
+          PY
