@@ -15,10 +15,16 @@
    *    when の全キーが保存済み属性(last優先→first)と一致したら、ページ内の line.me/ti/p と lin.ee のリンク先を url に置換する。
    *    LINE公式アカウントマネージャー「友だちを増やす→友だち追加経路」で発行したURLを吉井さんから受け取って記入する。 */
   var WC_LINE_ROUTES = [
-    { when: { utm_source: 'meta' }, url: '' },            // Meta広告(Instagram/Facebook)から
-    { when: { utm_medium: 'paid' }, url: '' },            // その他の有料広告から
-    { when: { utm_source: 'instagram', utm_medium: 'profile' }, url: '' } // IGプロフィールから
+    { when: { utm_source: 'meta' }, url: 'https://lin.ee/t7R6v7U' },            // Meta広告(Instagram/Facebook)から → LINE経路「Meta広告」
+    { when: { utm_medium: 'paid' }, url: 'https://lin.ee/t7R6v7U' },            // その他の有料広告から → 同上(広告用)
+    { when: { utm_source: 'instagram', utm_medium: 'profile' }, url: 'https://lin.ee/NjP0e8l' } // IGプロフィールから → LINE経路「Instagram」
   ];
+  /* 経路別URL一覧(2026-09-11 LINE公式で発行・編集/削除不可):
+   *   HP(既定・全ページのLINEボタン) https://lin.ee/X3Jn2thw
+   *   Instagram(プロフィール)        https://lin.ee/NjP0e8l
+   *   Meta広告                       https://lin.ee/t7R6v7U
+   *   店頭QR                         https://lin.ee/zcEiUKK
+   */
 
   function parse(search) {
     var out = {}, q = (search || '').replace(/^\?/, '').split('&');
