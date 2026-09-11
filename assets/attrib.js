@@ -1,4 +1,4 @@
-/* Well couture 流入属性の保持・引き継ぎ (2026-09-11 v2)
+/* Well couture 流入属性の保持・引き継ぎ (2026-09-11 v3)
  * 役割: ①着地URLのutm/クリックIDをlocalStorageに保存(初回着地=first / 最新=last)
  *       ②SP/PC振り分けや内部リンク遷移でパラメータを引き継ぐ
  *       ③予約フォーム送信に流入属性を同梱する (window.wcAttribFlat)
@@ -6,12 +6,14 @@
  *       ⑤保存済み経路に応じてLINE友だち追加リンクを差し替える (WC_LINE_ROUTES)
  *       ⑥SP/PC振り分け(__wc_redirect)で失われる元の参照元を復元する(v2)。振り分け前に ref=元の参照元 がURLに乗るので、
  *         読み取ったらURLから消し(utmは残す)、window.wcPageReferrer に入れる。各ページの gtag('config') が page_referrer として渡す
+ *       ⑦広告ID類(utm_id=キャンペーンID / adset_id / ad_id / src=配信元)も保存し、GA4の全イベントに共通パラメータとして付ける(v3)。
+ *         GA4側で adset_id / ad_id / src をカスタムディメンション(イベント)に登録すると内訳が見える。utm_id は標準の「キャンペーンID」
  * 注意: このファイルはgtag(GA4)より前に読み込むこと(④⑥のURL書き換えをGA4の計測前に済ませるため)
  */
 (function () {
   var KEY = 'wc_attrib';
   var TTL_DAYS = 90;
-  var TRACK = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'fbclid', 'ttclid', 'wbraid', 'gbraid'];
+  var TRACK = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'utm_id', 'adset_id', 'ad_id', 'src', 'gclid', 'fbclid', 'ttclid', 'wbraid', 'gbraid'];
 
   /* ⑤ LINE友だち追加リンクの経路別差し替え。url が空の行は無効。
    *    when の全キーが保存済み属性(last優先→first)と一致したら、ページ内の line.me/ti/p と lin.ee のリンク先を url に置換する。
@@ -85,12 +87,24 @@
       landingUrl: f.url || '', landingReferrer: f.referrer || '', landingTs: f.ts ? new Date(f.ts).toISOString() : '',
       lastUrl: l.url || '',
       utmSource: p.utm_source || '', utmMedium: p.utm_medium || '', utmCampaign: p.utm_campaign || '', utmContent: p.utm_content || '', utmTerm: p.utm_term || '',
+      campaignId: p.utm_id || '', adsetId: p.adset_id || '', adId: p.ad_id || '', adSrc: p.src || '',
       clickId: p.gclid ? 'gclid:' + p.gclid : p.fbclid ? 'fbclid:' + p.fbclid : p.ttclid ? 'ttclid:' + p.ttclid : '',
       pageUrl: location.href
     };
   }
   window.wcAttrib = function () { return load(); };
   window.wcAttribFlat = flat;
+
+  /* ⑦ 広告ID類をGA4の共通パラメータに(gtagより前に dataLayer へ 'set' を積む。値が無ければ何もしない) */
+  try {
+    var cur = current(), cp = (cur && cur.params) || {};
+    var extra = {};
+    if (cp.adset_id) extra.adset_id = cp.adset_id;
+    if (cp.ad_id) extra.ad_id = cp.ad_id;
+    if (cp.src) extra.ad_src = cp.src;
+    if (cp.utm_id) extra.wc_campaign_id = cp.utm_id;
+    if (Object.keys(extra).length) { window.dataLayer = window.dataLayer || []; (function () { window.dataLayer.push(arguments); })('set', extra); }
+  } catch (e) {}
 
   /* ② 内部リンクへ引き継ぎ: クリック時に同一サイト内の .html/相対リンクへ保存済みパラメータを付与 */
   function decorate(href) {
