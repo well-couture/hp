@@ -1,4 +1,4 @@
-/* Well couture 流入属性の保持・引き継ぎ (2026-09-11 v3)
+/* Well couture 流入属性の保持・引き継ぎ (2026-09-11 v4)
  * 役割: ①着地URLのutm/クリックIDをlocalStorageに保存(初回着地=first / 最新=last)
  *       ②SP/PC振り分けや内部リンク遷移でパラメータを引き継ぐ
  *       ③予約フォーム送信に流入属性を同梱する (window.wcAttribFlat)
@@ -7,6 +7,7 @@
  *       ⑥SP/PC振り分け(__wc_redirect)で失われる元の参照元を復元する(v2)。振り分け前に ref=元の参照元 がURLに乗るので、
  *         読み取ったらURLから消し(utmは残す)、window.wcPageReferrer に入れる。各ページの gtag('config') が page_referrer として渡す
  *       ⑦広告ID類(utm_id=キャンペーンID / adset_id / ad_id / src=配信元)も保存し、GA4の全イベントに共通パラメータとして付ける(v3)。
+ *       ⑧wcAttribFlat に Meta の _fbp/_fbc cookie と UA を同梱(v4)。予約時に GAS v15 が Conversions API へ渡す(重複除去・マッチ率用)
  *         GA4側で adset_id / ad_id / src をカスタムディメンション(イベント)に登録すると内訳が見える。utm_id は標準の「キャンペーンID」
  * 注意: このファイルはgtag(GA4)より前に読み込むこと(④⑥のURL書き換えをGA4の計測前に済ませるため)
  */
@@ -89,9 +90,11 @@
       utmSource: p.utm_source || '', utmMedium: p.utm_medium || '', utmCampaign: p.utm_campaign || '', utmContent: p.utm_content || '', utmTerm: p.utm_term || '',
       campaignId: p.utm_id || '', adsetId: p.adset_id || '', adId: p.ad_id || '', adSrc: p.src || '',
       clickId: p.gclid ? 'gclid:' + p.gclid : p.fbclid ? 'fbclid:' + p.fbclid : p.ttclid ? 'ttclid:' + p.ttclid : '',
-      pageUrl: location.href
+      pageUrl: location.href,
+      fbp: cookie_('_fbp'), fbc: cookie_('_fbc'), ua: navigator.userAgent || '' // v4: Meta CAPI 用(重複除去とマッチ率)
     };
   }
+  function cookie_(k) { try { var m = document.cookie.match(new RegExp('(?:^|; )' + k + '=([^;]*)')); return m ? decodeURIComponent(m[1]) : ''; } catch (e) { return ''; } }
   window.wcAttrib = function () { return load(); };
   window.wcAttribFlat = flat;
 

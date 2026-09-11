@@ -10,7 +10,8 @@
 <script src="./assets/meta-pixel.js"></script>
 <script>/* 予約完了イベント(line予約): Meta標準イベント Schedule ＋ GA4 booking_complete。再読込での二重送信を防ぐ */
 try { if (!sessionStorage.getItem('wc_booked_evt')) { sessionStorage.setItem('wc_booked_evt', '1');
-  if (window.fbq) fbq('track', 'Schedule', { content_name: 'line' });
+  var bk = ''; try { bk = (JSON.parse(localStorage.getItem('wc-booking') || 'null') || {}).bk || ''; } catch (_) {}
+  if (window.fbq) { if (bk) fbq('track', 'Schedule', { content_name: 'line' }, { eventID: bk }); else fbq('track', 'Schedule', { content_name: 'line' }); } // eventID=予約ID(GAS v15 の CAPI と重複除去)
   document.addEventListener('DOMContentLoaded', function () { if (window.gtag) gtag('event', 'booking_complete', { method: 'line' }); }); }
 } catch (e) {}</script>
 <!-- Google tag (gtag.js) -->

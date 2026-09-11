@@ -237,8 +237,8 @@ class Component extends DCLogic {
       submit: () => {
         const gasUrl = this.props.gasUrl ?? '';
         if (this.state.submitting) return;
-        const goThanks = () => {
-          try { localStorage.setItem('wc-booking', JSON.stringify({ date: s.date, time: s.time, name: s.name })); } catch (e) {}
+        const goThanks = (bk) => {
+          try { localStorage.setItem('wc-booking', JSON.stringify({ date: s.date, time: s.time, name: s.name, bk: bk || '' })); } catch (e) {}
           window.location.href = './line-thanks.html';
         };
         if (!gasUrl) { goThanks(); return; }
@@ -251,9 +251,9 @@ class Component extends DCLogic {
               this._loadBusy();
               return;
             }
-            goThanks();
+            goThanks(d && d.bookingId);
           })
-          .catch(goThanks);
+          .catch(() => goThanks());
       },
     };
   }
