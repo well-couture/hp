@@ -7,6 +7,11 @@
 <script src="./support.js"></script>
 <script src="./assets/attrib.js"></script>
 <script src="./assets/meta-pixel.js"></script>
+<script>/* 予約完了イベント(web予約): Meta標準イベント Schedule ＋ GA4 booking_complete。再読込での二重送信を防ぐ */
+try { if (!sessionStorage.getItem('wc_booked_evt')) { sessionStorage.setItem('wc_booked_evt', '1');
+  if (window.fbq) fbq('track', 'Schedule', { content_name: 'web' });
+  document.addEventListener('DOMContentLoaded', function () { if (window.gtag) gtag('event', 'booking_complete', { method: 'web' }); }); }
+} catch (e) {}</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-S3W7C1NC2H"></script>
 <script>
